@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting to Be Seen · Full Story</title>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top, #2a1a12, #0e0907 70%);
+            font-family: "Segoe UI", system-ui, sans-serif;
+            color: #f3e6d3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px
+        }
+
+        #frame {
+            width: min(1100px, 100%);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 70px #000c;
+            border: 1px solid #3a281c
+        }
+
+        #stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            container-type: inline-size;
+            overflow: hidden;
+            background: #120b07
+        }
+
+        #svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block
+        }
+
+        .layer {
+            transition: opacity 1.4s ease
+        }
+
+        .cam {
+            transform-box: view-box;
+            animation-name: kb;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards
+        }
+
+        @keyframes kb {
+            from {
+                transform: scale(var(--z0))
+            }
+
+            to {
+                transform: scale(var(--z1))
+            }
+        }
+
+        #grain {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            opacity: .18;
+            z-index: 3
+        }
+
+        #cap {
+            position: absolute;
+            left: 50%;
+            bottom: 4cqw;
+            transform: translateX(-50%);
+            max-width: 84cqw;
+            width: max-content;
+            background: rgba(20, 11, 6, .74);
+            color: #fff8ec;
+            padding: 1cqw 2.2cqw;
+            border-radius: 1.2cqw;
+            font-size: 2.3cqw;
+            line-height: 1.4;
+            text-align: center;
+            opacity: 0;
+            transition: opacity .4s;
+            z-index: 10;
+            box-shadow: 0 .4cqw 2cqw #0006
+        }
+
+        #cap.show {
+            opacity: 1
+        }
+
+        #cap.quote {
+            font-family: Georgia, serif;
+            font-style: italic;
+            color: #ffd98a;
+            font-size: 2.7cqw
+        }
+
+        #stamp {
+            position: absolute;
+            left: 3cqw;
+            top: 3cqw;
+            font-family: "Courier New", monospace;
+            font-size: 1.9cqw;
+            letter-spacing: .25cqw;
+            color: #fff4de;
+            background: rgba(40, 25, 15, .6);
+            padding: .6cqw 1.4cqw;
+            border-radius: .6cqw;
+            opacity: 0;
+            transition: opacity 1.2s;
+            z-index: 7;
+            border: 1px solid #fff3
+        }
+
+        #stamp.show {
+            opacity: 1
+        }
+
+        .card {
+            position: absolute;
+            inset: 0;
+            z-index: 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5cqw;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.3s;
+            overflow: hidden
+        }
+
+        .card.show {
+            opacity: 1
+        }
+
+        .dark {
+            background: radial-gradient(ellipse at 50% 45%, #3e2618 0%, #140c08 72%)
+        }
+
+        .pad {
+            padding-bottom: 12cqw
+        }
+
+        .tstar {
+            position: absolute;
+            width: 64cqw;
+            height: 64cqw;
+            opacity: .14;
+            animation: spin 180s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .tin {
+            position: relative
+        }
+
+        .kick {
+            font-size: 1.8cqw;
+            letter-spacing: .6cqw;
+            text-transform: uppercase;
+            color: #cfa98a
+        }
+
+        .card h1 {
+            font-family: Georgia, serif;
+            font-weight: normal;
+            font-size: 7.2cqw;
+            margin: 1cqw 0;
+            color: #f6c77a;
+            text-shadow: 0 .4cqw 2.4cqw #000a
+        }
+
+        .rule {
+            width: 16cqw;
+            height: .3cqw;
+            background: linear-gradient(90deg, transparent, #e08a4f, transparent);
+            margin: 1.2cqw auto
+        }
+
+        .chap {
+            font-size: 2.1cqw;
+            letter-spacing: .5cqw;
+            text-transform: uppercase;
+            color: #e7cdb0
+        }
+
+        .cname {
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 4cqw;
+            color: #fff1dc;
+            margin-top: .6cqw
+        }
+
+        .light {
+            background: radial-gradient(ellipse at 50% 40%, #f7ead2, #e2c79c);
+            color: #3a2416;
+            font-family: Georgia, serif;
+            padding-bottom: 10cqw
+        }
+
+        .light .big {
+            font-size: 12cqw;
+            color: #9c3d2a;
+            line-height: 1.1
+        }
+
+        .light p {
+            font-size: 2.7cqw;
+            max-width: 72cqw;
+            line-height: 1.5;
+            margin: 1cqw auto
+        }
+
+        .light .sm {
+            font-size: 2.1cqw;
+            color: #6b4a33
+        }
+
+        .light .src {
+            font-size: 1.5cqw;
+            color: #7a5a43;
+            margin-top: 1cqw
+        }
+
+        .memCard {
+            padding-bottom: 13cqw
+        }
+
+        .memCard h2 {
+            font-family: Georgia, serif;
+            font-weight: normal;
+            font-size: 5.4cqw;
+            margin: .4cqw 0;
+            color: #f6c77a;
+            text-shadow: 0 .4cqw 2.4cqw #000a
+        }
+
+        .memCard p {
+            font-size: 2.5cqw;
+            line-height: 1.5;
+            color: #efdcc4;
+            max-width: 70cqw;
+            margin: 0 auto
+        }
+
+        .candle {
+            display: block;
+            width: 5cqw;
+            height: 10cqw;
+            margin: 0 auto 1.4cqw;
+            overflow: visible
+        }
+
+        .flame {
+            transform-box: fill-box;
+            transform-origin: 50% 100%;
+            animation: flick 1.4s ease-in-out infinite alternate
+        }
+
+        @keyframes flick {
+            from {
+                transform: scale(1, 1) rotate(-3deg)
+            }
+
+            to {
+                transform: scale(.9, 1.1) rotate(3deg)
+            }
+        }
+
+        .halo {
+            animation: tw 2.2s ease-in-out infinite alternate
+        }
+
+        .blinkdot {
+            animation: tw 1s steps(2) infinite
+        }
+
+        .endp {
+            font-size: 2.4cqw;
+            line-height: 1.5;
+            color: #efdcc4;
+            margin: 1.2cqw auto;
+            max-width: 72cqw
+        }
+
+        .endp b {
+            color: #f6c77a;
+            font-weight: normal
+        }
+
+        .srcs {
+            font-size: 1.45cqw;
+            line-height: 1.55;
+            color: #cfa98a;
+            max-width: 82cqw;
+            margin: 1.4cqw auto 0
+        }
+
+        .grid4 {
+            display: flex;
+            gap: 3cqw;
+            justify-content: center;
+            margin-top: 2cqw
+        }
+
+        .s4 {
+            width: 17cqw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1cqw
+        }
+
+        .s4 svg {
+            width: 10cqw;
+            height: 10cqw;
+            fill: none;
+            stroke: #f6c77a;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
+
+        .s4 span {
+            font-family: Georgia, serif;
+            font-size: 2.1cqw;
+            color: #fff1dc;
+            line-height: 1.3
+        }
+
+        .card .cpop {
+            opacity: 0
+        }
+
+        .card.show .cpop {
+            animation: pop 1s ease-out forwards
+        }
+
+        .clipb {
+            width: 46cqw;
+            background: #8a6a48;
+            border-radius: 1.2cqw;
+            padding: 3.4cqw 2cqw 2cqw;
+            position: relative
+        }
+
+        .clipTop {
+            position: absolute;
+            top: -1.2cqw;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14cqw;
+            height: 3.4cqw;
+            background: #9aa3a8;
+            border-radius: .8cqw
+        }
+
+        .paper {
+            background: #fbf8f1;
+            padding: 2.4cqw;
+            text-align: left;
+            color: #3a3a3a
+        }
+
+        .ph {
+            font-size: 2cqw;
+            font-weight: bold;
+            margin-bottom: 1.4cqw;
+            color: #46525a
+        }
+
+        .ln {
+            height: 1cqw;
+            background: #dfe3e5;
+            border-radius: .5cqw;
+            margin: 1.2cqw 0;
+            width: 90%
+        }
+
+        .ln.s {
+            width: 60%
+        }
+
+        .ink {
+            font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+            font-size: 3.4cqw;
+            color: #b3332e;
+            opacity: 0
+        }
+
+        .card.show .ink {
+            animation: pop .9s ease-out forwards
+        }
+
+        .actnum {
+            width: 8cqw;
+            height: 8cqw;
+            border-radius: 50%;
+            border: .3cqw solid #e08a4f;
+            color: #f6c77a;
+            font-family: Georgia, serif;
+            font-size: 4.4cqw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1cqw auto
+        }
+
+        .acttext {
+            font-family: Georgia, serif;
+            font-size: 3.4cqw;
+            color: #fff1dc;
+            max-width: 72cqw;
+            margin: 1.4cqw auto;
+            line-height: 1.4;
+            min-height: 10cqw
+        }
+
+        .fadein {
+            animation: pop .7s ease-out
+        }
+
+        @keyframes pop {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .pop {
+            opacity: 0;
+            animation: pop 1.2s ease-out forwards
+        }
+
+        .puff {
+            animation: puff 2.4s ease-out infinite;
+            opacity: 0
+        }
+
+        @keyframes puff {
+            0% {
+                transform: translate(0, 0) scale(.6);
+                opacity: 0
+            }
+
+            25% {
+                opacity: .85
+            }
+
+            100% {
+                transform: translate(var(--dx), -60px) scale(1.6);
+                opacity: 0
+            }
+        }
+
+        .wordf {
+            opacity: 0;
+            animation: wordUp 6s ease-in-out forwards
+        }
+
+        @keyframes wordUp {
+            0% {
+                transform: translateY(24px);
+                opacity: 0
+            }
+
+            20% {
+                transform: translateY(0);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(-30px);
+                opacity: 1
+            }
+        }
+
+        .grow {
+            transform-box: fill-box;
+            transform-origin: 50% 100%;
+            transform: scaleY(0);
+            animation: grow 4s ease-out forwards
+        }
+
+        @keyframes grow {
+            to {
+                transform: scaleY(1)
+            }
+        }
+
+        .growc {
+            transform-box: fill-box;
+            transform-origin: 50% 100%;
+            transform: scale(0);
+            animation: growc 3s ease-out 2.5s forwards
+        }
+
+        @keyframes growc {
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .rootdraw {
+            stroke-dasharray: 320;
+            stroke-dashoffset: 320;
+            animation: draw 3.5s ease-out 1s forwards
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0
+            }
+        }
+
+        .floatq {
+            opacity: 0;
+            animation: pop 2s ease-out forwards
+        }
+
+        .flake {
+            animation: fall linear infinite
+        }
+
+        @keyframes fall {
+            from {
+                transform: translate(0, -20px)
+            }
+
+            to {
+                transform: translate(var(--dx), 580px)
+            }
+        }
+
+        .mote {
+            animation: mote ease-in-out infinite alternate
+        }
+
+        @keyframes mote {
+            from {
+                transform: translate(0, 0);
+                opacity: .15
+            }
+
+            to {
+                transform: translate(var(--dx), var(--dy));
+                opacity: .9
+            }
+        }
+
+        .twinkle {
+            animation: tw 3s ease-in-out infinite alternate
+        }
+
+        @keyframes tw {
+            from {
+                opacity: .15
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .steam {
+            animation: steam 3.6s ease-in-out infinite;
+            opacity: 0
+        }
+
+        @keyframes steam {
+            0% {
+                transform: translateY(6px);
+                opacity: 0
+            }
+
+            35% {
+                opacity: .7
+            }
+
+            100% {
+                transform: translateY(-34px);
+                opacity: 0
+            }
+        }
+
+        .smoke {
+            animation: smoke 7s linear infinite;
+            opacity: 0;
+            transform-box: fill-box;
+            transform-origin: center
+        }
+
+        @keyframes smoke {
+            0% {
+                transform: translate(0, 0) scale(.5);
+                opacity: .55
+            }
+
+            100% {
+                transform: translate(50px, -120px) scale(2.4);
+                opacity: 0
+            }
+        }
+
+        .sway {
+            transform-box: fill-box;
+            transform-origin: 50% 100%;
+            animation: sway 3s ease-in-out infinite alternate
+        }
+
+        @keyframes sway {
+            from {
+                transform: rotate(-5deg)
+            }
+
+            to {
+                transform: rotate(5deg)
+            }
+        }
+
+        .eyes {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: blink 5s infinite
+        }
+
+        @keyframes blink {
+
+            0%,
+            93%,
+            100% {
+                transform: scaleY(1)
+            }
+
+            96% {
+                transform: scaleY(.1)
+            }
+        }
+
+        .tear {
+            animation: tear 1.8s ease-in infinite
+        }
+
+        @keyframes tear {
+            0% {
+                transform: translateY(0);
+                opacity: 0
+            }
+
+            20% {
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(18px);
+                opacity: 0
+            }
+        }
+
+        .prop {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: prop .12s linear infinite
+        }
+
+        @keyframes prop {
+            50% {
+                transform: scaleY(.12)
+            }
+        }
+
+        .wag {
+            transform-box: fill-box;
+            transform-origin: 100% 100%;
+            animation: wag .45s ease-in-out infinite alternate
+        }
+
+        @keyframes wag {
+            from {
+                transform: rotate(-14deg)
+            }
+
+            to {
+                transform: rotate(18deg)
+            }
+        }
+
+        .actor {
+            transition: transform 2s ease-in-out, opacity 1s
+        }
+
+        .walk .inner {
+            animation: bob .34s ease-in-out infinite alternate
+        }
+
+        @keyframes bob {
+            to {
+                transform: translateY(-5px)
+            }
+        }
+
+        .rise {
+            animation: rise 5s ease-out infinite;
+            opacity: 0
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0
+            }
+
+            25% {
+                opacity: 1
+            }
+
+            100% {
+                transform: translate(var(--dx), -190px);
+                opacity: 0
+            }
+        }
+
+        #glows {
+            opacity: 0;
+            transition: opacity 2.5s
+        }
+
+        #glows.on {
+            opacity: 1
+        }
+
+        .bird {
+            animation: fly linear infinite
+        }
+
+        @keyframes fly {
+            from {
+                transform: translate(-120px, 0)
+            }
+
+            to {
+                transform: translate(1100px, -70px)
+            }
+        }
+
+        .flap {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: flap .45s ease-in-out infinite alternate
+        }
+
+        @keyframes flap {
+            to {
+                transform: scaleY(.35)
+            }
+        }
+
+        .cough {
+            animation: cough 1.3s ease-out infinite
+        }
+
+        @keyframes cough {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0)
+            }
+
+            30% {
+                opacity: 1
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(12px, -6px)
+            }
+        }
+
+        .sparkle {
+            animation: tw 1.6s ease-in-out infinite alternate
+        }
+
+        #stage.paused *,
+        #stage.paused *::before {
+            animation-play-state: paused !important
+        }
+
+        .controls {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px 16px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            font-size: 14px
+        }
+
+        button {
+            font: inherit;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 9px 20px;
+            border: 0;
+            border-radius: 999px;
+            background: #d9764a;
+            color: #fff;
+            cursor: pointer;
+            transition: transform .15s, background .15s
+        }
+
+        button:hover:not(:disabled) {
+            background: #e88a5c;
+            transform: translateY(-1px)
+        }
+
+        button:disabled {
+            opacity: .45;
+            cursor: default
+        }
+
+        button.ghost {
+            background: #3a281c
+        }
+
+        select,
+        input[type=range] {
+            accent-color: #d9764a
+        }
+
+        select {
+            background: #24170f;
+            color: #f3e6d3;
+            border: 1px solid #5a3d2a;
+            border-radius: 8px;
+            padding: 6px;
+            max-width: 260px
+        }
+
+        label {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            color: #d8c3aa
+        }
+
+        #clock {
+            font-variant-numeric: tabular-nums;
+            color: #bfa58c;
+            min-width: 44px
+        }
+
+        .tip {
+            font-size: 12.5px;
+            color: #9c8672;
+            margin-top: 10px;
+            text-align: center;
+            max-width: 900px;
+            line-height: 1.5
+        }
+    </style>
+</head>
+
+<body>
+    <div id="frame">
+        <div id="stage">
+            <svg id="svg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="shadeR" x1="0" x2="1">
+                        <stop offset=".4" stop-color="#000" stop-opacity="0" />
+                        <stop offset="1" stop-color="#000" stop-opacity=".22" />
+                    </linearGradient>
+                    <radialGradient id="gGlow">
+                        <stop offset="0" stop-color="#ffe2a0" stop-opacity=".95" />
+                        <stop offset=".45" stop-color="#ffb85a" stop-opacity=".35" />
+                        <stop offset="1" stop-color="#ffb85a" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="gMoon">
+                        <stop offset="0" stop-color="#fff8e0" stop-opacity=".8" />
+                        <stop offset="1" stop-color="#cfe0ff" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="vig" cx=".5" cy=".5" r=".75">
+                        <stop offset=".55" stop-color="#000" stop-opacity="0" />
+                        <stop offset="1" stop-color="#1a0f08" stop-opacity=".6" />
+                    </radialGradient>
+                    <linearGradient id="gDusk" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#1c2150" />
+                        <stop offset=".45" stop-color="#77497a" />
+                        <stop offset=".78" stop-color="#e3886a" />
+                        <stop offset="1" stop-color="#f7c983" />
+                    </linearGradient>
+                    <linearGradient id="gField" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#b9793c" />
+                        <stop offset="1" stop-color="#4e2f1c" />
+                    </linearGradient>
+                    <linearGradient id="gWinter" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#b3c8d8" />
+                        <stop offset=".7" stop-color="#ece6dc" />
+                        <stop offset="1" stop-color="#f7efe2" />
+                    </linearGradient>
+                    <linearGradient id="gSnow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#ffffff" />
+                        <stop offset="1" stop-color="#d8e0e8" />
+                    </linearGradient>
+                    <linearGradient id="gIce" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stop-color="#d5e5ef" />
+                        <stop offset=".5" stop-color="#bcd3e2" />
+                        <stop offset="1" stop-color="#d5e5ef" />
+                    </linearGradient>
+                    <linearGradient id="gOver" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#a6abb3" />
+                        <stop offset="1" stop-color="#e6e2da" />
+                    </linearGradient>
+                    <linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#f0d0a0" />
+                        <stop offset="1" stop-color="#d6a473" />
+                    </linearGradient>
+                    <linearGradient id="gWinN" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#0e1531" />
+                        <stop offset="1" stop-color="#2d4a78" />
+                    </linearGradient>
+                    <linearGradient id="gWood" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#94623b" />
+                        <stop offset="1" stop-color="#5e3a20" />
+                    </linearGradient>
+                    <linearGradient id="gWardWall" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#f1ebdc" />
+                        <stop offset="1" stop-color="#d8d0bd" />
+                    </linearGradient>
+                    <linearGradient id="gWardFloor" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#b3a992" />
+                        <stop offset="1" stop-color="#7e7462" />
+                    </linearGradient>
+                    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#fff6d8" stop-opacity=".6" />
+                        <stop offset="1" stop-color="#fff6d8" stop-opacity="0" />
+                    </linearGradient>
+                    <linearGradient id="gNight" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#0a0f25" />
+                        <stop offset="1" stop-color="#2a4270" />
+                    </linearGradient>
+                    <linearGradient id="gSummer" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#8fbfdb" />
+                        <stop offset="1" stop-color="#f4e7c6" />
+                    </linearGradient>
+                    <linearGradient id="gLake" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#7fb0c8" />
+                        <stop offset="1" stop-color="#4a7c98" />
+                    </linearGradient>
+                    <linearGradient id="gGrass" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#97b562" />
+                        <stop offset="1" stop-color="#5e7f3c" />
+                    </linearGradient>
+                    <filter id="sepia" color-interpolation-filters="sRGB">
+                        <feColorMatrix type="matrix"
+                            values="0.393 0.769 0.189 0 0  0.349 0.686 0.168 0 0  0.272 0.534 0.131 0 0  0 0 0 1 0" />
+                    </filter>
+                    <filter id="blurF" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="5" />
+                    </filter>
+                    <clipPath id="winClip">
+                        <rect x="335" y="75" width="290" height="280" />
+                    </clipPath>
+                    <clipPath id="mirClip">
+                        <rect x="372" y="92" width="216" height="296" />
+                    </clipPath>
+                </defs>
+                <rect width="960" height="540" fill="#120b07" />
+                <g id="layers">
+                    <g id="L0" class="layer" style="opacity:0"></g>
+                    <g id="L1" class="layer" style="opacity:0"></g>
+                </g>
+                <rect width="960" height="540" fill="url(#vig)" pointer-events="none" />
+            </svg>
+            <div id="grain"></div>
+            <div id="stamp"></div>
+            <div id="cap"></div>
+
+            <div class="card dark" id="noteCard">
+                <div class="tin">
+                    <div class="kick">Content note</div>
+                    <div class="rule"></div>
+                    <h1 style="font-size:3.4cqw;line-height:1.5">This story includes the separation of children from
+                        families<br>and abuse in hospitals. Please take care while watching.</h1>
+                </div>
+            </div>
+            <div class="card dark show" id="titleCard">
+                <svg class="tstar" viewBox="-110 -110 220 220">
+                    <g id="tStar"></g>
+                </svg>
+                <div class="tin">
+                    <div class="kick">A story in six chapters</div>
+                    <h1>Waiting to Be Seen</h1>
+                    <div class="rule"></div>
+                    <div class="chap">Chapter 1</div>
+                    <div class="cname">Kokum’s Story</div>
+                </div>
+            </div>
+            <div class="card dark" id="chapCard">
+                <svg class="tstar" viewBox="-110 -110 220 220">
+                    <g id="cStar"></g>
+                </svg>
+                <div class="tin">
+                    <div class="kick">Waiting to Be Seen</div>
+                    <div class="rule"></div>
+                    <div class="chap" id="chapNum"></div>
+                    <h1 style="font-size:6cqw" id="chapName"></h1>
+                </div>
+            </div>
+            <div class="card light" id="infoCard">
+                <div class="big" id="infoBig"></div>
+                <p id="infoText"></p>
+                <p class="sm" id="infoSm"></p>
+                <div class="src" id="infoSrc"></div>
+            </div>
+            <div class="card dark" id="reflectCard">
+                <div class="tin">
+                    <div class="kick">Pause and reflect</div>
+                    <div class="rule"></div>
+                    <h1 style="font-size:4.6cqw;line-height:1.35" id="reflectQ"></h1>
+                </div>
+            </div>
+            <div class="card dark memCard" id="sinclairCard">
+                <div class="tin">
+                    <svg class="candle" viewBox="0 0 60 120">
+                        <circle class="halo" cx="30" cy="30" r="30" fill="url(#gGlow)" />
+                        <g class="flame">
+                            <path d="M30 12 C39 25 38 36 30 40 C22 36 21 25 30 12Z" fill="#ffc861" />
+                            <path d="M30 24 C33 30 33 35 30 38 C27 35 27 30 30 24Z" fill="#fff4d0" />
+                        </g>
+                        <line x1="30" y1="40" x2="30" y2="46" stroke="#3a2a1e" stroke-width="2" />
+                        <rect x="18" y="46" width="24" height="64" rx="3" fill="#f3e6cf" />
+                        <rect x="18" y="46" width="24" height="64" rx="3" fill="url(#shadeR)" />
+                        <ellipse cx="30" cy="110" rx="20" ry="5" fill="#8a6a48" />
+                    </svg>
+                    <div class="kick">Winnipeg · 2008</div>
+                    <h2>Brian Sinclair</h2>
+                    <div class="rule"></div>
+                    <p>Waited 34 hours in an emergency room without being triaged.<br>Died of a treatable bladder
+                        infection.</p>
+                </div>
+            </div>
+            <div class="card dark memCard" id="echaquanCard">
+                <div class="tin">
+                    <svg class="candle" viewBox="0 0 60 120">
+                        <circle class="halo" cx="30" cy="30" r="30" fill="url(#gGlow)" />
+                        <g class="flame">
+                            <path d="M30 12 C39 25 38 36 30 40 C22 36 21 25 30 12Z" fill="#ffc861" />
+                            <path d="M30 24 C33 30 33 35 30 38 C27 35 27 30 30 24Z" fill="#fff4d0" />
+                        </g>
+                        <line x1="30" y1="40" x2="30" y2="46" stroke="#3a2a1e" stroke-width="2" />
+                        <rect x="18" y="46" width="24" height="64" rx="3" fill="#f3e6cf" />
+                        <rect x="18" y="46" width="24" height="64" rx="3" fill="url(#shadeR)" />
+                        <ellipse cx="30" cy="110" rx="20" ry="5" fill="#8a6a48" />
+                    </svg>
+                    <div class="kick">Joliette, Quebec · 2020</div>
+                    <h2>Joyce Echaquan</h2>
+                    <div class="rule"></div>
+                    <p>Atikamekw mother of seven. Recorded hospital staff insulting her<br>with racist comments. Died
+                        shortly after.</p>
+                </div>
+            </div>
+            <div class="card dark memCard" id="plainSightCard">
+                <div class="tin">
+                    <div class="kick">British Columbia · 2020</div>
+                    <h2><i>In Plain Sight</i></h2>
+                    <div class="rule"></div>
+                    <p>An independent review found widespread racism against<br>Indigenous peoples in health care.</p>
+                </div>
+            </div>
+            <div class="card dark pad" id="stratCard">
+                <div class="tin">
+                    <div class="kick">Trauma-informed care</div>
+                    <div class="rule"></div>
+                    <div class="grid4">
+                        <div class="s4 cpop" style="animation-delay:.8s"><svg viewBox="0 0 60 60">
+                                <path
+                                    d="M10 12 h40 a6 6 0 0 1 6 6 v18 a6 6 0 0 1 -6 6 h-24 l-10 9 v-9 h-6 a6 6 0 0 1 -6 -6 v-18 a6 6 0 0 1 6 -6z" />
+                                <path d="M16 22 h28 M16 31 h18" />
+                            </svg><span>Explain</span></div>
+                        <div class="s4 cpop" style="animation-delay:2.2s"><svg viewBox="0 0 60 60">
+                                <rect x="18" y="28" width="24" height="24" rx="9" />
+                                <path d="M21 30 V12 M27 28 V8 M33 28 V9 M39 30 V14 M18 42 L10 33" />
+                            </svg><span>Ask permission</span></div>
+                        <div class="s4 cpop" style="animation-delay:3.6s"><svg viewBox="0 0 60 60">
+                                <path
+                                    d="M30 56 V34 M30 34 L14 12 M30 34 L46 12 M14 12 l-1 8 M14 12 l8 1 M46 12 l1 8 M46 12 l-8 1" />
+                            </svg><span>Offer choices</span></div>
+                        <div class="s4 cpop" style="animation-delay:5s"><svg viewBox="0 0 60 60">
+                                <circle cx="30" cy="32" r="20" />
+                                <circle cx="30" cy="12" r="5" />
+                                <circle cx="12" cy="42" r="5" />
+                                <circle cx="48" cy="42" r="5" />
+                            </svg><span>Make room for family and culture</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="chartCard" style="background:#cfd8da;padding-bottom:10cqw">
+                <div class="clipb">
+                    <div class="clipTop"></div>
+                    <div class="paper">
+                        <div class="ph">Admission notes</div>
+                        <div class="ln"></div>
+                        <div class="ln s"></div>
+                        <div class="ink" style="animation-delay:3.6s">Non-compliant.</div>
+                        <div class="ln"></div>
+                        <div class="ink" style="animation-delay:5.4s">Refuses to engage.</div>
+                        <div class="ln s"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card dark pad" id="eyesCard">
+                <div class="tin">
+                    <div class="kick">Etuaptmumk · Two-Eyed Seeing</div>
+                    <div class="rule"></div>
+                    <svg viewBox="0 0 420 175" style="width:54cqw;display:block;margin:1cqw auto">
+                        <g class="cpop" style="animation-delay:.6s">
+                            <path d="M30 80 Q110 8 190 80 Q110 152 30 80Z" fill="#f3e6cf" stroke="#cfa98a"
+                                stroke-width="3" />
+                            <circle cx="110" cy="80" r="40" fill="#2f6e73" />
+                            <path d="M96 60 v16 a14 14 0 0 0 28 0 v-16" stroke="#fff4de" stroke-width="4" fill="none"
+                                stroke-linecap="round" />
+                            <path d="M110 90 v8 a9 9 0 0 0 18 0 v-6" stroke="#fff4de" stroke-width="4" fill="none"
+                                stroke-linecap="round" />
+                            <circle cx="128" cy="90" r="5" fill="#fff4de" /><text x="110" y="168" text-anchor="middle"
+                                font-family="Georgia,serif" font-size="17" fill="#e7cdb0">Western knowledge</text>
+                        </g>
+                        <g class="cpop" style="animation-delay:1.8s">
+                            <path d="M230 80 Q310 8 390 80 Q310 152 230 80Z" fill="#f3e6cf" stroke="#cfa98a"
+                                stroke-width="3" />
+                            <circle cx="310" cy="80" r="40" fill="#8fbfdb" />
+                            <circle cx="322" cy="66" r="9" fill="#ffd27a" />
+                            <path d="M276 96 Q292 74 310 92 Q328 74 344 96 Q336 112 310 119 Q284 112 276 96Z"
+                                fill="#5e8f4a" /><text x="310" y="168" text-anchor="middle" font-family="Georgia,serif"
+                                font-size="17" fill="#e7cdb0">Indigenous knowledge</text>
+                        </g>
+                        <path class="cpop" style="animation-delay:3s" d="M192 80 H228" stroke="#e08a4f" stroke-width="3"
+                            stroke-dasharray="4 5" />
+                    </svg>
+                    <div class="cname cpop" style="animation-delay:4s;font-size:3cqw">Using the strengths of both,
+                        together</div>
+                </div>
+            </div>
+            <div class="card dark pad" id="actCard">
+                <div class="tin">
+                    <div class="kick">What you can do, starting today</div>
+                    <div class="rule"></div>
+                    <div id="actNum" class="actnum"></div>
+                    <p id="actText" class="acttext"></p>
+                </div>
+            </div>
+            <div class="card dark" id="closingCard">
+                <svg class="tstar" viewBox="-110 -110 220 220">
+                    <g id="clStar"></g>
+                </svg>
+                <div class="tin">
+                    <h1 style="font-size:5.2cqw;line-height:1.35">Trust is earned<br>one patient at a time.</h1>
+                    <div class="rule"></div>
+                    <div class="cname">Start with yours.</div>
+                </div>
+            </div>
+            <div class="card dark pad" id="supportCard">
+                <div class="tin">
+                    <div class="kick">Support is available 24/7</div>
+                    <div class="rule"></div>
+                    <p class="endp">If this story brought up painful feelings, you don't have to carry them alone.</p>
+                    <p class="endp"><b>Hope for Wellness Help Line</b> (for Indigenous peoples)<br>1-855-242-3310 ·
+                        hopeforwellness.ca</p>
+                    <p class="endp"><b>Suicide Crisis Helpline</b><br>Call or text 9-8-8</p>
+                </div>
+            </div>
+            <div class="card dark" id="creditsCard">
+                <div class="tin">
+                    <div class="cname" style="font-size:3.2cqw">Kayla's family is fictional. The history is real.</div>
+                    <div class="rule"></div>
+                    <p class="endp">Created by [group member names]<br>HLST 133 · MacEwan University</p>
+                    <p class="srcs">Sources: Truth and Reconciliation Commission of Canada (2015), Calls to Action ·
+                        Turpel-Lafond (2020), In Plain Sight · Preston (2014), Inquest report into the death of Brian
+                        Sinclair · Council of the Atikamekw of Manawan (2020), Joyce's Principle · Health Canada and
+                        Assembly of First Nations (2015), First Nations Mental Wellness Continuum Framework · Chandler
+                        and Lalonde (1998), Transcultural Psychiatry · Ramsden (2002), Cultural Safety and Nursing
+                        Education in Aotearoa and Te Waipounamu · Bartlett, Marshall and Marshall (2012), Journal of
+                        Environmental Studies and Sciences · Lux (2016), Separate Beds · The Canadian Press (2025, June
+                        26), Indian Hospitals class-action settlement</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="play">▶ Play</button>
+        <button id="pause" class="ghost" disabled>❚❚ Pause</button>
+        <label>Voice <select id="voice">
+                <option>Loading voices…</option>
+            </select></label>
+        <label>Speed <input type="range" id="rate" min="0.75" max="1.2" step="0.05" value="1"></label>
+        <label><input type="checkbox" id="voiceOn" checked> Narration</label>
+        <label><input type="checkbox" id="capOn" checked> Captions</label>
+        <span id="clock">0:00</span>
+    </div>
+    <div class="tip">Kayla and her family are fictional. The Indian hospital history, Brian Sinclair, Joyce Echaquan and
+        the reports cited are real.<br>
+        Best voices: open this in Microsoft Edge and pick a voice with “Natural” in its name. To make a video,
+        screen-record the player with system audio turned on. If something goes wrong while recording, press Restart
+        rather than Pause.</div>
+
+    <script>
+        const $ = id => document.getElementById(id);
+        const rnd = (a, b) => a + Math.random() * (b - a);
+        const f1 = n => n.toFixed(1);
+        function dk(hex, a = .2) { const n = parseInt(hex.slice(1), 16); const r = Math.round((n >> 16) * (1 - a)), g = Math.round(((n >> 8) & 255) * (1 - a)), b = Math.round((n & 255) * (1 - a)); return `rgb(${r},${g},${b})`; }
+
+        const PRE = {
+            kokum: { skin: '#b07a52', hair: '#d4cec6', hairStyle: 'grayBraid', top: '#7b4a6f', bottom: '#4b3a50', legs: '#4b3a50', shoes: '#3b2a24', dress: true, cardigan: true, old: true, glasses: true },
+            kayla: { skin: '#b8805a', hair: '#231815', hairStyle: 'ponytail', top: '#3d7f8b', bottom: '#2f3b4f', legs: '#2f3b4f', shoes: '#eeeeee', hoodie: true },
+            rose: { skin: '#b07a52', hair: '#1c1310', hairStyle: 'twoBraids', top: '#b8453d', legs: '#8a6a52', shoes: '#6b4a2f', child: true, dress: true, collar: true },
+            mom: { skin: '#a8704a', hair: '#1c1310', hairStyle: 'kerchief', scarf: '#b33a3a', top: '#4f6d7a', legs: '#5b4636', shoes: '#3b2a20', dress: true, coat: true },
+            nurse: { skin: '#f0c8a8', hair: '#5a3b24', hairStyle: 'nurseCap', top: '#dfe6ea', legs: '#f1e9df', shoes: '#ffffff', dress: true, nurse: true },
+            officer: { skin: '#eec39e', hair: '#4a3a2a', hairStyle: 'furHat', top: '#5c4a3a', legs: '#3a3a3a', shoes: '#222222', parka: true, clip: true },
+            donna: { skin: '#a8704a', hair: '#1c1310', hairStyle: 'long', top: '#c58b3a', legs: '#3e4a63', shoes: '#2b2b2b' },
+            staff: { skin: '#e7bb98', hair: '#6b4a2e', hairStyle: 'short', top: '#4a6f9c', legs: '#4a6f9c', shoes: '#f2f2f2', scrubs: true },
+            p1: { skin: '#c98f66', hair: '#a9a39b', hairStyle: 'short', top: '#6b7a5a', legs: '#3d3a36', shoes: '#2b2b2b', old: true },
+            p2: { skin: '#f0c8a8', hair: '#2a2420', hairStyle: 'short', top: '#8a4f6d', legs: '#34404f', shoes: '#2b2b2b' },
+            aleks: { skin: '#d9a982', hair: '#3a2a1e', hairStyle: 'bun', top: '#4f7fbf', legs: '#4f7fbf', shoes: '#f2f2f2', scrubs: true, steth: true },
+            tyler: { skin: '#a8714c', hair: '#1c1310', hairStyle: 'short', top: '#8a8f96', legs: '#2f3540', shoes: '#e6e6e6', hoodie: true }
+        };
+        const STU = { hoodie: false, scrubs: true, top: '#5b8fa8', legs: '#4a7590' };
+
+        function braid(x0, y0, x1, y1, n, w, c, tie) { let s = ''; for (let i = 0; i < n; i++) { const t = i / (n - 1), x = x0 + (x1 - x0) * t, y = y0 + (y1 - y0) * t; s += `<ellipse cx="${f1(x)}" cy="${f1(y)}" rx="${w}" ry="${f1(w * 1.25)}" fill="${c}" stroke="rgba(0,0,0,.28)" stroke-width="1"/>`; } return s + `<circle cx="${f1(x1)}" cy="${f1(y1 + w * 1.4)}" r="${f1(w * .6)}" fill="${tie}"/>`; }
+        function hairCap(H, hy, R) { return `<path d="M${-R - 1} ${hy + 3} C${-R - 3} ${hy - R * 1.32} ${R + 3} ${hy - R * 1.32} ${R + 1} ${hy + 3} C${R * .75} ${hy - R * .45} ${R * .25} ${hy - R * .62} 0 ${hy - R * .74} C${-R * .25} ${hy - R * .62} ${-R * .75} ${hy - R * .45} ${-R - 1} ${hy + 3}Z" fill="${H}" stroke="rgba(0,0,0,.25)" stroke-width="1.2"/>`; }
+        function hairFront(p, hy, R, bt, sw) {
+            const H = p.hair;
+            switch (p.hairStyle) {
+                case 'grayBraid': return hairCap(H, hy, R) + `<path d="M${-R * .45} ${hy - R * .9} Q${-R * .15} ${hy - R * .5} ${-R * .5} ${hy - R * .15}M${R * .45} ${hy - R * .9} Q${R * .15} ${hy - R * .5} ${R * .5} ${hy - R * .15}" stroke="#fff" stroke-opacity=".45" fill="none" stroke-width="1.5"/>` + braid(R * .72, hy + R * .62, sw - 8, bt + 64, 8, 6.5, H, '#b8392f');
+                case 'twoBraids': return hairCap(H, hy, R) + braid(-R * .82, hy + R * .55, -sw + 3, bt + 32, 5, 5.4, H, '#c0392b') + braid(R * .82, hy + R * .55, sw - 3, bt + 32, 5, 5.4, H, '#c0392b');
+                case 'ponytail': return `<path d="M${-R - 1} ${hy + 5} C${-R - 4} ${hy - R * 1.36} ${R + 4} ${hy - R * 1.32} ${R + 1} ${hy + 2} C${R * .55} ${hy - R * .5} ${-R * .15} ${hy - R * .42} ${-R * .6} ${hy - R * .28} C${-R * .85} ${hy - R * .12} ${-R * .95} ${hy} ${-R - 1} ${hy + 5}Z" fill="${H}" stroke="rgba(0,0,0,.25)" stroke-width="1.2"/><path d="M${-R * .2} ${hy - R * 1.05} Q${R * .4} ${hy - R * .9} ${R * .8} ${hy - R * .4}" stroke="#fff" stroke-opacity=".25" fill="none" stroke-width="2"/>`;
+                case 'kerchief': {
+                    const S = p.scarf; let s = hairCap(H, hy, R);
+                    s += `<path d="M${-R * .9} ${hy + R * .4} Q${-R * .55} ${hy + R * 1.05} 0 ${hy + R + 3} M${R * .9} ${hy + R * .4} Q${R * .55} ${hy + R * 1.05} 0 ${hy + R + 3}" stroke="${S}" stroke-width="6" fill="none"/>`;
+                    s += `<path d="M${-R - 5} ${hy + R * .5} C${-R - 7} ${hy - R * 1.5} ${R + 7} ${hy - R * 1.5} ${R + 5} ${hy + R * .5} L${R * .78} ${hy + R * .2} C${R * .7} ${hy - R * .75} ${-R * .7} ${hy - R * .75} ${-R * .78} ${hy + R * .2}Z" fill="${S}" stroke="rgba(0,0,0,.3)" stroke-width="1.2"/>`;
+                    [[-.5, -.95], [0, -1.08], [.5, -.95], [-.88, -.25], [.88, -.25], [-.25, -.7], [.25, -.7]].forEach(([a, b]) => s += `<circle cx="${f1(R * a)}" cy="${f1(hy + R * b)}" r="2.2" fill="#fff" opacity=".75"/>`);
+                    return s + `<circle cx="0" cy="${hy + R + 4}" r="5.5" fill="${S}"/><path d="M-3 ${hy + R + 7} l-6 11 M3 ${hy + R + 7} l6 11" stroke="${S}" stroke-width="4" stroke-linecap="round"/>`;
+                }
+                case 'nurseCap': return hairCap(H, hy, R) + `<path d="M${-R * .72} ${hy - R * .78} L${-R * .52} ${hy - R * 1.32} L${R * .52} ${hy - R * 1.32} L${R * .72} ${hy - R * .78}Z" fill="#ffffff" stroke="#b9b9b9" stroke-width="1.5"/><rect x="${-R * .72}" y="${hy - R * .88}" width="${R * 1.44}" height="4" fill="#555" opacity=".45"/>`;
+                case 'furHat': return `<ellipse cx="${-R - 2}" cy="${hy + R * .15}" rx="7" ry="15" fill="#6b4a32"/><ellipse cx="${R + 2}" cy="${hy + R * .15}" rx="7" ry="15" fill="#6b4a32"/><rect x="${-R - 5}" y="${hy - R * 1.28}" width="${2 * R + 10}" height="${R * .9}" rx="${R * .42}" fill="#6b4a32" stroke="rgba(0,0,0,.3)"/><path d="M${-R - 3} ${hy - R * .45} q5 -6 10 0 q5 -6 10 0 q5 -6 10 0 q5 -6 10 0 q5 -6 10 0 q5 -6 10 0 q5 -6 10 0" stroke="#8a6448" stroke-width="3" fill="none"/>`;
+                default: return hairCap(H, hy, R);
+            }
+        }
+
+        function face(p, hy, R) {
+            const s = R / 31, m = p.mood || 'neutral', X = v => f1(v * s), Y = v => f1(hy + v * s);
+            const st = `fill="none" stroke="#4a2a20" stroke-width="${f1(2.6 * s)}" stroke-linecap="round"`;
+            let g = `<circle cx="${X(-17)}" cy="${Y(11)}" r="${X(5.5)}" fill="#e2735e" opacity=".32"/><circle cx="${X(17)}" cy="${Y(11)}" r="${X(5.5)}" fill="#e2735e" opacity=".32"/>`;
+            if (m === 'laugh') { g += `<path d="M${X(-15)} ${Y(3)} Q${X(-11)} ${Y(-3)} ${X(-7)} ${Y(3)} M${X(7)} ${Y(3)} Q${X(11)} ${Y(-3)} ${X(15)} ${Y(3)}" ${st}/>`; }
+            else if (m === 'sleep') { g += `<path d="M${X(-15)} ${Y(1)} Q${X(-11)} ${Y(5)} ${X(-7)} ${Y(1)} M${X(7)} ${Y(1)} Q${X(11)} ${Y(5)} ${X(15)} ${Y(1)}" ${st}/>`; }
+            else {
+                g += `<g class="eyes" style="animation-delay:-${rnd(0, 5).toFixed(2)}s">` + [-11, 11].map(x => `<ellipse cx="${X(x)}" cy="${Y(2)}" rx="${X(3.7)}" ry="${X(4.7)}" fill="#2a1a14"/><circle cx="${X(x + 1.3)}" cy="${Y(.3)}" r="${X(1.3)}" fill="#fff"/>`).join('') + `</g>`;
+                if (m === 'stern') g += `<path d="M${X(-15.5)} ${Y(-1.8)} L${X(-6.5)} ${Y(-1.8)} M${X(6.5)} ${Y(-1.8)} L${X(15.5)} ${Y(-1.8)}" stroke="${p.skin}" stroke-width="${X(3.8)}"/>`;
+            }
+            if (p.old) g += `<path d="M${X(-21)} ${Y(0)} l${X(-4)} ${X(-2)} M${X(-21)} ${Y(4)} l${X(-4)} ${X(2)} M${X(21)} ${Y(0)} l${X(4)} ${X(-2)} M${X(21)} ${Y(4)} l${X(4)} ${X(2)} M${X(-14)} ${Y(13)} q${X(-2)} ${X(4)} 0 ${X(8)} M${X(14)} ${Y(13)} q${X(2)} ${X(4)} 0 ${X(8)} M${X(-8)} ${Y(-17)} q${X(8)} ${X(-2)} ${X(16)} 0" stroke="${dk(p.skin, .25)}" stroke-width="${f1(1.4 * s)}" fill="none" stroke-linecap="round"/>`;
+            g += `<path d="M${X(-2.5)} ${Y(10)} Q0 ${Y(13)} ${X(2.5)} ${Y(10)}" fill="none" stroke="${dk(p.skin, .28)}" stroke-width="${f1(2 * s)}" stroke-linecap="round"/>`;
+            const B = { neutral: [[-16, -8], [-11, -11], [-6, -9]], smile: [[-16, -9], [-11, -13], [-6, -10]], laugh: [[-16, -10], [-11, -14], [-6, -11]], sad: [[-16, -7], [-11, -9], [-6, -12]], worried: [[-16, -7], [-11, -9], [-6, -13]], cry: [[-16, -7], [-11, -9], [-6, -13]], stern: [[-16, -12], [-11, -10], [-6, -7]], happycry: [[-16, -8], [-11, -12], [-6, -11]] };
+            const b = B[m] || B.neutral, brow = d => `M${X(d * b[0][0])} ${Y(b[0][1])} Q${X(d * b[1][0])} ${Y(b[1][1])} ${X(d * b[2][0])} ${Y(b[2][1])}`;
+            g += `<path d="${brow(1)} ${brow(-1)}" fill="none" stroke="${p.old ? '#7d746c' : '#3a2418'}" stroke-width="${f1(2.8 * s)}" stroke-linecap="round"/>`;
+            const M = { neutral: `M${X(-6)} ${Y(18)} Q0 ${Y(20)} ${X(6)} ${Y(18)}`, smile: `M${X(-9)} ${Y(16)} Q0 ${Y(24)} ${X(9)} ${Y(16)}`, sad: `M${X(-7)} ${Y(21)} Q0 ${Y(16)} ${X(7)} ${Y(21)}`, worried: `M${X(-7)} ${Y(20)} Q${X(-3.5)} ${Y(17)} 0 ${Y(20)} Q${X(3.5)} ${Y(23)} ${X(7)} ${Y(20)}`, stern: `M${X(-7)} ${Y(19)} L${X(7)} ${Y(19)}` };
+            if (m === 'laugh' || m === 'happycry') g += `<path d="M${X(-10)} ${Y(15)} Q0 ${Y(29)} ${X(10)} ${Y(15)} Z" fill="#7a2e2a" stroke="#4a2a20" stroke-width="${f1(1.6 * s)}"/>`;
+            else if (m === 'cry') g += `<ellipse cx="0" cy="${Y(20)}" rx="${X(5)}" ry="${X(4)}" fill="#7a2e2a"/>`;
+            else g += `<path d="${M[m] || M.neutral}" ${st}/>`;
+            if (m === 'cry' || m === 'happycry') g += [-11, 11].map((x, i) => `<path class="tear" style="animation-delay:${i * .8}s" d="M${X(x)} ${Y(8)} q${X(-3)} ${X(6)} 0 ${X(8)} q${X(3)} ${X(-2)} 0 ${X(-8)}z" fill="#9fd8f5"/>`).join('');
+            if (p.cough) g += `<g class="cough" fill="none" stroke="#8a9aa8" stroke-width="2" stroke-linecap="round"><path d="M${X(14)} ${Y(19)} q${X(6)} ${X(-3)} ${X(11)} 0"/><path d="M${X(15)} ${Y(24)} q${X(6)} 0 ${X(10)} ${X(3)}"/></g>`;
+            if (p.glasses) g += `<g fill="#ffffff" fill-opacity=".12" stroke="#7a5a3a" stroke-width="${f1(2 * s)}"><circle cx="${X(-11)}" cy="${Y(2)}" r="${X(8.5)}"/><circle cx="${X(11)}" cy="${Y(2)}" r="${X(8.5)}"/></g><path d="M${X(-2.5)} ${Y(1)} Q0 ${Y(-1)} ${X(2.5)} ${Y(1)}" stroke="#7a5a3a" stroke-width="${f1(2 * s)}" fill="none"/>`;
+            if (p.fog) g += `<g opacity=".93"><rect x="${X(-21)}" y="${Y(-5)}" width="${X(18)}" height="${X(14)}" rx="${X(4)}" fill="#cfd6dc" stroke="#5f6a72" stroke-width="${f1(2 * s)}"/><rect x="${X(3)}" y="${Y(-5)}" width="${X(18)}" height="${X(14)}" rx="${X(4)}" fill="#cfd6dc" stroke="#5f6a72" stroke-width="${f1(2 * s)}"/><path d="M${X(-3)} ${Y(1)} H${X(3)}" stroke="#5f6a72" stroke-width="${f1(2 * s)}"/></g>`;
+            return g;
+        }
+
+        function arm(side, pose, bt, sw, k, p) {
+            const A = { down: [sw + 7 * k, bt + 44 * k, sw + 6 * k, bt + 80 * k], table: [sw + 10 * k, bt + 48 * k, sw - 2 * k, bt + 80 * k], mug: [sw + 9 * k, bt + 50 * k, 10 * k, bt + 44 * k], hug: [sw + 6 * k, bt + 48 * k, -6 * k, bt + 56 * k], cross: [sw + 8 * k, bt + 46 * k, -8 * k, bt + 40 * k], reach: [sw + 26 * k, bt + 34 * k, sw + 54 * k, bt + 24 * k], wave: [sw + 28 * k, bt + 6 * k, sw + 26 * k, bt - 36 * k], point: [sw + 18 * k, bt + 30 * k, sw + 20 * k, bt - 14 * k], face: [sw + 10 * k, bt + 24 * k, 9 * k, bt - 18 * k] };
+            const a = A[pose] || A.down, sx = side * (sw - 7 * k), sy = bt + 14 * k, ex = side * a[0], ey = a[1], hx = side * a[2], hy = a[3];
+            let g = `<path d="M${f1(sx)} ${f1(sy)} Q${f1(ex)} ${f1(ey)} ${f1(hx)} ${f1(hy)}" stroke="${p.sleeve || p.top}" stroke-width="${f1(15 * k)}" fill="none" stroke-linecap="round"/><path d="M${f1(sx)} ${f1(sy)} Q${f1(ex)} ${f1(ey)} ${f1(hx)} ${f1(hy)}" stroke="#000" stroke-opacity=".08" stroke-width="${f1(5 * k)}" fill="none" stroke-linecap="round" transform="translate(${2 * side},2)"/>`;
+            if (pose === 'point') g += `<rect x="${f1(hx - 2.2)}" y="${f1(hy - 17)}" width="4.5" height="13" rx="2" fill="${p.skin}"/>`;
+            return g + `<circle cx="${f1(hx)}" cy="${f1(hy)}" r="${f1(7.5 * k)}" fill="${p.skin}" stroke="rgba(60,32,18,.35)"/>`;
+        }
+
+        function details(p, bt, bB, sw, hw, k) {
+            let g = '';
+            if (p.cardigan) g += `<path d="M-9 ${bt} L-12 ${bB + 2} L12 ${bB + 2} L9 ${bt}Z" fill="#efe2cc"/><path d="M-9 ${bt} L-12 ${bB + 2} M9 ${bt} L12 ${bB + 2}" stroke="#5a3350" stroke-width="3"/>` + [0, 1, 2, 3].map(i => `<circle cx="-15" cy="${bt + 24 + i * 24}" r="2.6" fill="#e8d8b8"/>`).join('') + `<path d="M-9 ${bt + 4} Q0 ${bt + 22} 9 ${bt + 4}" stroke="#c9453a" stroke-width="3" fill="none" stroke-dasharray="3 3"/>`;
+            if (p.hoodie) g += `<rect x="${-sw + 9}" y="${bB - 34}" width="${2 * sw - 18}" height="22" rx="8" fill="${dk(p.top, .12)}"/><path d="M-6 ${bt + 2} v28 M6 ${bt + 2} v28" stroke="#eeeeee" stroke-width="2" stroke-linecap="round"/>`;
+            if (p.coat) g += `<rect x="${-sw - 3}" y="${bt + 60}" width="${2 * sw + 6}" height="7" fill="${dk(p.top, .28)}"/><path d="M0 ${bt + 6} L0 ${bB}" stroke="${dk(p.top, .28)}" stroke-width="2"/>` + [0, 1, 2].map(i => `<circle cx="5" cy="${bt + 20 + i * 22}" r="2.5" fill="#d9c9a0"/>`).join('');
+            if (p.nurse) g += `<path d="M-12 ${bt} L0 ${bt + 14} L12 ${bt}" fill="#ffffff" stroke="#bbbbbb"/><rect x="${f1(-hw * .55)}" y="${bt + 56}" width="${f1(hw * 1.1)}" height="${bB - bt - 60}" rx="6" fill="#ffffff" stroke="#cccccc"/><rect x="10" y="${bt + 18}" width="10" height="7" rx="2" fill="#b33a3a"/>`;
+            if (p.scrubs) { g += `<path d="M-11 ${bt} L0 ${bt + 16} L11 ${bt}Z" fill="${dk(p.skin, .06)}" stroke="${dk(p.top, .3)}" stroke-width="2"/>`; if (!p.steth && !p.clip) g += `<path d="M0 ${bt + 16} V${bt + 40}" stroke="#2f5d5a" stroke-width="2"/><rect x="-7" y="${bt + 40}" width="14" height="18" rx="2" fill="#ffffff" stroke="#99aaaa"/><rect x="-4" y="${bt + 44}" width="8" height="5" fill="${p.top}"/>`; }
+            if (p.steth) g += `<path d="M-14 ${bt + 2} Q-17 ${bt + 38} 0 ${bt + 44} Q17 ${bt + 38} 14 ${bt + 2}" stroke="#2f3438" stroke-width="3" fill="none"/><circle cx="0" cy="${bt + 48}" r="5" fill="#b9c2c8" stroke="#2f3438" stroke-width="2"/>`;
+            if (p.parka) g += `<path d="M${-sw} ${bB - 8} L${sw} ${bB - 8}" stroke="#efe6d4" stroke-width="10"/><path d="M0 ${bt + 8} V${bB - 13}" stroke="${dk(p.top, .35)}" stroke-width="2"/><rect x="-26" y="${bt + 60}" width="16" height="14" rx="3" fill="${dk(p.top, .15)}"/>`;
+            if (p.collar) g += `<path d="M-12 ${bt} Q-7 ${bt + 11} 0 ${bt + 6} Q7 ${bt + 11} 12 ${bt}Z" fill="#f6efe2"/>`;
+            return g;
+        }
+
+        function fig(p) {
+            const ch = !!p.child, k = ch ? .72 : 1, legH = ch ? 40 : 72, bt = ch ? -98 : -158, R = ch ? 27 : 31, hy = bt - (ch ? 24 : 32), sw = ch ? 21 : (p.parka ? 35 : 30);
+            const long = p.dress || p.coat, bB = long ? (ch ? -14 : -26) : (ch ? -34 : -64), hw = long ? (ch ? 29 : 40) : (ch ? 20 : 29);
+            const sit = p.pose === 'sit', SD = sit ? Math.round(24 * k) : 0;
+            const O = 'stroke="rgba(60,32,18,.45)" stroke-width="1.6"';
+            let g = '', legs = '';
+            if (p.hairStyle === 'ponytail') g += `<ellipse cx="${R * .95}" cy="${hy + R * .2}" rx="${R * .36}" ry="${R * .95}" transform="rotate(-16 ${R * .95} ${hy + R * .2})" fill="${p.hair}" ${O}/>`;
+            if (p.hairStyle === 'nurseCap') g += `<circle cx="${R * .55}" cy="${hy - R * .45}" r="${R * .42}" fill="${p.hair}" ${O}/>`;
+            if (p.hairStyle === 'bun') g += `<circle cx="0" cy="${f1(hy - R * 1.02)}" r="${f1(R * .42)}" fill="${p.hair}" ${O}/>`;
+            if (p.hairStyle === 'grayBraid' || p.hairStyle === 'twoBraids') g += `<ellipse cx="0" cy="${hy + R * .2}" rx="${R * 1.08}" ry="${R * 1.05}" fill="${p.hair}"/>`;
+            if (p.hairStyle === 'long') g += `<path d="M${-R - 4} ${hy - 2} Q${-R - 9} ${f1(hy + R * 1.3)} ${-R + 3} ${bt + 22} L${R - 3} ${bt + 22} Q${R + 9} ${f1(hy + R * 1.3)} ${R + 4} ${hy - 2}Z" fill="${p.hair}" ${O}/>`;
+            if (p.parka) g += `<circle cx="0" cy="${hy + 3}" r="${R + 13}" fill="#efe6d4" ${O}/><circle cx="0" cy="${hy + 3}" r="${R + 5}" fill="#4a3a2e"/>`;
+            if (p.hoodie) g += `<ellipse cx="0" cy="${bt + 3}" rx="${sw - 3}" ry="13" fill="${dk(p.top, .2)}"/>`;
+            if (sit) {
+                const ly = bB + SD, sh = Math.max(0, -ly - 8);
+                if (sh > 0) legs += `<rect x="${f1(-15 * k)}" y="${ly + 8}" width="${f1(13 * k)}" height="${sh}" rx="${f1(5 * k)}" fill="${p.legs}"/><rect x="${f1(2 * k)}" y="${ly + 8}" width="${f1(13 * k)}" height="${sh}" rx="${f1(5 * k)}" fill="${p.legs}"/>`;
+                legs += `<ellipse cx="${f1(-9 * k)}" cy="-3" rx="${f1(11 * k)}" ry="${f1(6 * k)}" fill="${p.shoes}"/><ellipse cx="${f1(9 * k)}" cy="-3" rx="${f1(11 * k)}" ry="${f1(6 * k)}" fill="${p.shoes}"/>`;
+                if (!long) legs += `<rect x="${f1(-hw + 2)}" y="${ly - 8}" width="${f1(2 * hw - 4)}" height="${f1(22 * k)}" rx="${f1(9 * k)}" fill="${dk(p.legs, .06)}" ${O}/>`;
+            } else if (p.pose !== 'upper') {
+                legs += `<rect x="${f1(-15 * k)}" y="${-legH}" width="${f1(13 * k)}" height="${legH}" rx="${f1(5 * k)}" fill="${p.legs}"/><rect x="${f1(2 * k)}" y="${-legH}" width="${f1(13 * k)}" height="${legH}" rx="${f1(5 * k)}" fill="${p.legs}"/>`;
+                legs += `<ellipse cx="${f1(-9 * k)}" cy="-3" rx="${f1(11 * k)}" ry="${f1(6 * k)}" fill="${p.shoes}"/><ellipse cx="${f1(9 * k)}" cy="-3" rx="${f1(11 * k)}" ry="${f1(6 * k)}" fill="${p.shoes}"/>`;
+            }
+            g += `<rect x="${f1(-7 * k)}" y="${hy + R - 8}" width="${f1(14 * k)}" height="${bt - hy - R + 14}" fill="${dk(p.skin, .1)}"/>`;
+            const body = `M${-sw} ${bt + 14} Q${-sw} ${bt} ${-sw + 14} ${bt} L${sw - 14} ${bt} Q${sw} ${bt} ${sw} ${bt + 14} L${hw} ${bB} Q0 ${bB + 5} ${-hw} ${bB} Z`;
+            g += `<path d="${body}" fill="${p.top}" ${O}/>` + details(p, bt, bB, sw, hw, k) + `<path d="${body}" fill="url(#shadeR)"/>`;
+            if (p.clip) g += `<g transform="rotate(-8 7 ${bt + 38})"><rect x="-6" y="${bt + 22}" width="26" height="32" rx="2" fill="#d8c8a6" stroke="#6b5a42" stroke-width="2"/><rect x="1" y="${bt + 19}" width="12" height="5" fill="#777777"/><path d="M-1 ${bt + 32} h16 M-1 ${bt + 38} h16 M-1 ${bt + 44} h10" stroke="#8a7a62" stroke-width="1.5"/></g>`;
+            g += arm(-1, p.armL || 'down', bt, sw, k, p) + arm(1, p.armR || (p.clip ? 'mug' : 'down'), bt, sw, k, p);
+            g += `<circle cx="${-R + 1}" cy="${hy + 3}" r="${f1(6 * k)}" fill="${p.skin}" ${O}/><circle cx="${R - 1}" cy="${hy + 3}" r="${f1(6 * k)}" fill="${p.skin}" ${O}/>`;
+            g += `<circle cx="0" cy="${hy}" r="${R}" fill="${p.skin}" ${O}/><path d="M${R * .2} ${hy - R * .9} A${R} ${R} 0 0 1 ${R * .98} ${hy + R * .2}" stroke="#000" stroke-opacity=".08" stroke-width="7" fill="none"/>`;
+            g += face(p, hy, R) + hairFront(p, hy, R, bt, sw);
+            return `<g class="bd">${legs}<g transform="translate(0,${SD})">${g}</g></g>`;
+        }
+
+        function inBed(p) {
+            const R = 27;
+            let g = `<ellipse cx="-8" cy="12" rx="54" ry="24" fill="#f7f3ea" stroke="#cfc8ba" stroke-width="1.5"/>`;
+            g += `<ellipse cx="-4" cy="-2" rx="${R * 1.12}" ry="${R * 1.08}" fill="${p.hair}"/>` + ((p.hairStyle === 'twoBraids' || p.hairStyle === 'grayBraid') ? braid(-24, 18, -58, 34, 5, 5, p.hair, '#c0392b') : '');
+            g += `<circle cx="0" cy="0" r="${R}" fill="${p.skin}" stroke="rgba(60,32,18,.45)" stroke-width="1.6"/>` + face(p, 0, R) + hairCap(p.hair, 0, R);
+            g += `<path d="M22 6 Q80 -22 160 -12 Q260 -6 350 -16 Q374 -14 374 40 L20 44 Z" fill="#8f9eab" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/><path d="M300 -12 V42 M312 -13 V42" stroke="#ffffff" stroke-opacity=".5" stroke-width="3"/><path d="M40 4 Q120 -10 200 -2" stroke="#000" stroke-opacity=".08" stroke-width="6" fill="none"/>`;
+            g += `<circle cx="62" cy="2" r="7" fill="${p.skin}" stroke="rgba(60,32,18,.35)"/>`;
+            return `<g class="bd">${g}</g>`;
+        }
+
+        function figBack(p) {
+            const R = 27, hy = -104, bt = -80;
+            let g = `<path d="M-31 0 Q-35 ${bt + 12} -20 ${bt} L20 ${bt} Q35 ${bt + 12} 31 0Z" fill="#e8e1d2" stroke="rgba(0,0,0,.3)"/><path d="M-31 0 Q-35 ${bt + 12} -20 ${bt} L20 ${bt} Q35 ${bt + 12} 31 0Z" fill="url(#shadeR)"/>`;
+            g += `<circle cx="${-R + 1}" cy="${hy + 4}" r="5.5" fill="${p.skin}"/><circle cx="${R - 1}" cy="${hy + 4}" r="5.5" fill="${p.skin}"/>`;
+            g += `<circle cx="0" cy="${hy}" r="${R}" fill="${p.hair}" stroke="rgba(0,0,0,.3)"/><path d="M0 ${hy - R} V${hy + R * .7}" stroke="#000" stroke-opacity=".35" stroke-width="1.5"/>`;
+            g += braid(-9, hy + R * .85, -12, bt + 42, 5, 5, p.hair, '#c0392b') + braid(9, hy + R * .85, 12, bt + 42, 5, 5, p.hair, '#c0392b');
+            return `<g class="bd">${g}</g>`;
+        }
+
+        let REG = {}, CUR = null;
+        function renderA(a) { const p = { ...PRE[a.name], ...a.o }; return a.kind === 'bed' ? inBed(p) : a.kind === 'back' ? figBack(p) : fig(p); }
+        function actor(id, name, x, y, s, o = {}, kind = 'fig') { REG[id] = { name, x, y, s, o: { ...o }, kind }; return `<g id="${id}" class="actor" style="transform:translate(${x}px,${y}px) scale(${s});opacity:${o.hidden ? 0 : 1}"><g class="inner">${renderA(REG[id])}</g></g>`; }
+        const q = sel => CUR ? CUR.querySelector(sel) : null;
+        function mood(id, o) { const a = REG[id], el = q('#' + id + ' .inner'); if (!a || !el) return; Object.assign(a.o, o); el.innerHTML = renderA(a); }
+        function move(id, x, y, dur, walk = true) { const a = REG[id], el = q('#' + id); if (!a || !el) return; a.x = x; a.y = y; el.style.transition = `transform ${dur}s ease-in-out, opacity 1s`; el.style.transform = `translate(${x}px,${y}px) scale(${a.s})`; if (walk) { el.classList.add('walk'); setTimeout(() => el.classList.remove('walk'), dur * 1000); } }
+        function fade(id, v) { const el = q('#' + id); if (el) el.style.opacity = v; }
+        function show(id, v) { const el = q('#' + id); if (el) el.style.opacity = v; }
+        function blur(id, on) { const el = q('#' + id); if (!el) return; if (on) el.setAttribute('filter', 'url(#blurF)'); else el.removeAttribute('filter'); }
+        function turnOn(id) { const el = q('#' + id); if (el) el.classList.add('on'); }
+
+        function snow(n, clip) { let s = `<g${clip ? ` clip-path="url(#${clip})"` : ''} fill="#ffffff">`; for (let i = 0; i < n; i++)s += `<circle class="flake" cx="${rnd(0, 960).toFixed(0)}" cy="-10" r="${rnd(1.2, 3.8).toFixed(1)}" opacity="${rnd(.5, .95).toFixed(2)}" style="--dx:${rnd(-70, 70).toFixed(0)}px;animation-duration:${rnd(7, 15).toFixed(1)}s;animation-delay:-${rnd(0, 15).toFixed(1)}s"/>`; return s + '</g>'; }
+        function stars(n, maxY, x0 = 0, x1 = 960, y0 = 5) { let s = ''; for (let i = 0; i < n; i++)s += `<circle class="twinkle" cx="${rnd(x0, x1).toFixed(0)}" cy="${rnd(y0, maxY).toFixed(0)}" r="${rnd(.6, 1.8).toFixed(1)}" fill="#fff8e6" style="animation-delay:-${rnd(0, 3).toFixed(1)}s;animation-duration:${rnd(2, 4).toFixed(1)}s"/>`; return s; }
+        function motes(n, x0, x1, y0, y1) { let s = ''; for (let i = 0; i < n; i++)s += `<circle class="mote" cx="${rnd(x0, x1).toFixed(0)}" cy="${rnd(y0, y1).toFixed(0)}" r="${rnd(.8, 2.4).toFixed(1)}" fill="#fff6d8" style="--dx:${rnd(-30, 30).toFixed(0)}px;--dy:${rnd(-30, 30).toFixed(0)}px;animation-duration:${rnd(4, 9).toFixed(1)}s;animation-delay:-${rnd(0, 9).toFixed(1)}s"/>`; return s; }
+        function smokeAt(x, y, c = '#d8d4ce') { let s = ''; for (let i = 0; i < 5; i++)s += `<circle class="smoke" cx="${x}" cy="${y}" r="9" fill="${c}" style="animation-delay:-${i * 1.4}s"/>`; return s; }
+        function spruce(x, y, s, c = '#35584a') { return `<g transform="translate(${f1(x)},${f1(y)}) scale(${s.toFixed(2)})"><rect x="-4" y="-14" width="8" height="16" fill="#4a3322"/><path d="M0 -150 L-22 -105 L-12 -105 L-34 -65 L-20 -65 L-46 -18 L46 -18 L20 -65 L34 -65 L12 -105 L22 -105Z" fill="${c}"/><path d="M0 -150 L-22 -105 L-12 -105 L-34 -65 L-20 -65 L-46 -18 L0 -18Z" fill="#000" opacity=".12"/><path d="M-46 -18 L46 -18 L38 -25 L-38 -25Z M-34 -65 L34 -65 L28 -71 L-28 -71Z M-22 -105 L22 -105 L17 -110 L-17 -110Z" fill="#ffffff" opacity=".85"/></g>`; }
+        function bare(x, y, s) { let d = ''; const br = (x0, y0, a, l, n) => { const x1 = x0 + Math.cos(a) * l, y1 = y0 + Math.sin(a) * l; d += `M${f1(x0)} ${f1(y0)}L${f1(x1)} ${f1(y1)}`; if (n > 0) { br(x1, y1, a - rnd(.3, .6), l * rnd(.62, .76), n - 1); br(x1, y1, a + rnd(.3, .6), l * rnd(.62, .76), n - 1); } }; br(0, 0, -Math.PI / 2, 70, 5); return `<g transform="translate(${x},${y}) scale(${s})"><path d="M-5 0 L-2 -70 L2 -70 L5 0Z" fill="#3a2c24"/><path d="${d}" stroke="#3a2c24" stroke-width="2.6" stroke-linecap="round" fill="none"/></g>`; }
+        function starShape(r) { const cols = ['#b3332e', '#e8a53a', '#2f6e73', '#f6efe0', '#b3332e', '#e8a53a'], sz = [1, .82, .64, .46, .3, .15]; let s = ''; sz.forEach((z, i) => { for (let a = 0; a < 8; a++)s += `<path d="M0 0 L${f1(r * z * .19)} ${f1(-r * z * .45)} L0 ${f1(-r * z)} L${f1(-r * z * .19)} ${f1(-r * z * .45)}Z" fill="${cols[i]}" transform="rotate(${a * 45})"/>`; }); return s; }
+        function starBlanket(cx, cy, r) { let s = `<g transform="translate(${cx},${cy})"><rect x="${-r - 26}" y="${-r - 30}" width="${2 * r + 52}" height="5" rx="2" fill="#5a3a26"/><rect x="${-r - 16}" y="${-r - 16}" width="${2 * r + 32}" height="${2 * r + 32}" fill="#f1e6cf" stroke="#c9b79a" stroke-width="2"/>` + starShape(r); for (let x = -r - 14; x <= r + 14; x += 6)s += `<line x1="${x}" y1="${r + 16}" x2="${x}" y2="${r + 26}" stroke="#c9b79a" stroke-width="2"/>`; return s + '</g>'; }
+        function mug(x, y, c) { let s = `<g><rect x="${x - 13}" y="${y - 26}" width="26" height="28" rx="5" fill="${c}" stroke="rgba(0,0,0,.25)"/><path d="M${x + 13} ${y - 20} q12 0 12 9 q0 9 -12 9" fill="none" stroke="${c}" stroke-width="5"/>`; for (let i = 0; i < 3; i++)s += `<path class="steam" style="animation-delay:${i * 1.2}s" d="M${x - 6 + i * 6} ${y - 30} q-6 -9 0 -18 q6 -9 0 -18" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>`; return s + '</g>'; }
+        function bannock(x, y) { return `<g><ellipse cx="${x}" cy="${y - 3}" rx="64" ry="12" fill="#f3efe6" stroke="#cfc6b4"/><ellipse cx="${x - 24}" cy="${y - 12}" rx="26" ry="11" fill="#d9a45b" stroke="#a8722f"/><ellipse cx="${x + 22}" cy="${y - 12}" rx="26" ry="11" fill="#dcab63" stroke="#a8722f"/><ellipse cx="${x}" cy="${y - 20}" rx="26" ry="11" fill="#e0b36d" stroke="#a8722f"/><path d="M${x - 8} ${y - 22} l6 4 M${x + 4} ${y - 24} l6 4 M${x - 34} ${y - 14} l6 3 M${x + 14} ${y - 14} l6 3" stroke="#a8722f" stroke-width="1.6"/></g>`; }
+        function dog(x, y) { return `<g transform="translate(${x},${y})"><path class="wag" d="M-26 -30 Q-44 -46 -38 -58" stroke="#5b4332" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="-22" y="-24" width="8" height="24" rx="3" fill="#4a3526"/><rect x="-8" y="-22" width="8" height="22" rx="3" fill="#4a3526"/><rect x="10" y="-24" width="8" height="24" rx="3" fill="#4a3526"/><rect x="20" y="-22" width="8" height="22" rx="3" fill="#4a3526"/><ellipse cx="0" cy="-30" rx="30" ry="15" fill="#5b4332"/><ellipse cx="14" cy="-26" rx="10" ry="8" fill="#e9dcc6"/><circle cx="30" cy="-44" r="13" fill="#5b4332"/><ellipse cx="41" cy="-40" rx="8" ry="6" fill="#e9dcc6"/><circle cx="47" cy="-41" r="2.6" fill="#1a1a1a"/><circle cx="32" cy="-47" r="2.3" fill="#1a1a1a"/><path d="M22 -54 L20 -66 L30 -56Z M34 -56 L38 -68 L42 -54Z" fill="#3e2c20"/></g>`; }
+        function cabin(x, y) { let s = `<g transform="translate(${x},${y})"><rect x="36" y="-118" width="16" height="44" fill="#5a4a42"/>` + smokeAt(44, -122); for (let i = 0; i < 5; i++)s += `<rect x="-80" y="${-13 * (i + 1)}" width="160" height="13" rx="6" fill="${i % 2 ? '#7a5234' : '#6a452a'}" stroke="#4a2f1c"/>`; return s + `<path d="M-96 -62 L0 -112 L96 -62Z" fill="#5a3a26"/><path d="M-100 -60 L0 -117 L100 -60 L92 -57 L0 -104 L-92 -57Z" fill="#ffffff"/><rect x="-58" y="-48" width="26" height="48" fill="#4a2f1c"/><rect x="10" y="-44" width="30" height="24" fill="#ffd27a" stroke="#4a2f1c" stroke-width="3"/><path d="M25 -44 V-20 M10 -32 H40" stroke="#4a2f1c" stroke-width="2"/><ellipse cx="0" cy="3" rx="104" ry="8" fill="#ffffff"/></g>`; }
+        function planeSVG(t) {
+            const B = '#b8443a', T = '#f2e4c4'; let g = '';
+            if (t === 'ski') g += `<path d="M-40 16 L-44 44 M60 16 L64 44" stroke="#333" stroke-width="3"/><path d="M-80 46 H100 Q116 46 120 34" stroke="#3a3a3a" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+            else g += `<path d="M-40 16 L-46 40 M60 16 L66 40" stroke="#333" stroke-width="3"/><path d="M-90 40 H96 Q124 40 128 30 L128 46 Q110 56 -80 54 Q-92 50 -90 40Z" fill="#d9d4c8" stroke="rgba(0,0,0,.3)"/>`;
+            g += `<path d="M-145 -52 L-118 -52 L-92 -14 L-128 -8Z" fill="${B}" stroke="rgba(0,0,0,.3)"/><path d="M-128 -6 Q-140 -2 -128 4 L-40 16 L80 20 Q120 18 134 6 L136 -14 Q122 -32 80 -34 L-40 -28 Z" fill="${B}" stroke="rgba(0,0,0,.35)" stroke-width="2"/><path d="M-124 -1 L132 -1 L132 6 L-122 6Z" fill="${T}"/><path d="M70 -30 L96 -30 L110 -12 L70 -12Z" fill="#9cc3d6"/><rect x="36" y="-28" width="26" height="16" rx="2" fill="#9cc3d6"/><rect x="-6" y="-24" width="30" height="36" rx="3" fill="${dk(B, .15)}" stroke="rgba(0,0,0,.3)"/><rect x="-20" y="-48" width="150" height="12" rx="6" fill="${T}" stroke="rgba(0,0,0,.3)"/><path d="M10 -36 L-4 10 M100 -36 L62 12" stroke="#555" stroke-width="3"/><path d="M-142 -8 L-100 -8 L-96 -2 L-142 -2Z" fill="${T}"/><circle cx="140" cy="-4" r="7" fill="#444444"/><ellipse class="prop" cx="145" cy="-4" rx="4" ry="36" fill="#333333" opacity=".55"/>`;
+            return g;
+        }
+        function bedS(x, y, s, flip) { return `<g transform="translate(${x},${y}) scale(${flip ? -s : s},${s})"><path d="M-70 0 V-74 M-62 -74 V-30 M-54 -74 V-30 M-72 -74 H-50 M70 0 V-50 M62 -50 V-30 M54 -50 V-30 M72 -50 H50 M-70 -30 H70" stroke="#6b6f73" stroke-width="3.5" fill="none"/><rect x="-66" y="-40" width="134" height="12" fill="#f4f1ea"/><ellipse cx="-52" cy="-42" rx="15" ry="7" fill="#ffffff"/><path d="M-38 -40 Q0 -56 66 -46 V-28 H-38Z" fill="#9aa7b0"/><circle cx="-46" cy="-48" r="9" fill="#a8704a"/><path d="M-55 -48 A9 9 0 0 1 -37 -50" stroke="#1c1310" stroke-width="5" fill="none"/></g>`; }
+        function ceilingLights() { let s = '';[80, 400, 720].forEach(x => s += `<rect x="${x}" y="0" width="160" height="12" fill="#fbfdff"/><rect x="${x - 20}" y="12" width="200" height="50" fill="#ffffff" opacity=".2"/>`); return s; }
+        function hospBed() { return `<rect x="205" y="360" width="22" height="120" rx="6" fill="#9aa7ad"/><rect x="706" y="384" width="18" height="96" rx="6" fill="#9aa7ad"/><rect x="220" y="430" width="500" height="26" rx="8" fill="#f4f6f5" stroke="#c7cfd2"/><rect x="228" y="456" width="484" height="16" fill="#9aa7ad"/><path d="M250 472 V498 M690 472 V498" stroke="#7d898f" stroke-width="6"/><circle cx="250" cy="502" r="7" fill="#3a4045"/><circle cx="690" cy="502" r="7" fill="#3a4045"/>`; }
+        function chair(x, c = '#4f7f8c') { return `<rect x="${x - 30}" y="350" width="60" height="102" rx="10" fill="${c}"/><rect x="${x - 34}" y="450" width="68" height="14" rx="5" fill="${dk(c, .15)}"/><path d="M${x - 26} 464 V505 M${x + 26} 464 V505" stroke="#3a4045" stroke-width="4"/>`; }
+
+        const S = {};
+        S.prairie = (o = {}) => {
+            let s = `<rect width="960" height="540" fill="url(#gDusk)"/>` + stars(50, 220);
+            s += `<circle cx="640" cy="420" r="240" fill="url(#gGlow)" opacity=".75"/><circle cx="640" cy="418" r="58" fill="#ffd89a"/>`;
+            if (o.city) { for (let x = 250; x < 560; x += 22) { const h = rnd(18, 56); s += `<rect x="${x}" y="${f1(392 - h)}" width="18" height="${f1(h)}" fill="#3b2f4a"/>`; for (let j = 0; j < 3; j++)s += `<rect class="twinkle" x="${f1(x + rnd(3, 13))}" y="${f1(392 - h + rnd(4, h - 4))}" width="2.5" height="3" fill="#ffd27a" style="animation-delay:-${rnd(0, 3).toFixed(1)}s"/>`; } }
+            s += `<path d="M0 392 Q180 350 380 380 T760 372 T960 384 V540 H0Z" fill="#7b4f6c" opacity=".85"/><path d="M0 424 Q240 392 500 418 T960 410 V540 H0Z" fill="#553a58"/><path d="M0 452 Q480 424 960 452 V540 H0Z" fill="url(#gField)"/>`;
+            for (let x = 20; x < 960; x += 58)s += `<rect x="${x}" y="${440 - Math.sin(x / 150) * 6}" width="4" height="20" fill="#3a2530"/>`;
+            s += `<path d="M0 446 Q480 424 960 446" stroke="#3a2530" stroke-width="1.5" fill="none"/>`;
+            s += `<g fill="#2f2136"><rect x="170" y="360" width="10" height="78"/><circle cx="175" cy="350" r="36"/><circle cx="148" cy="370" r="25"/><circle cx="202" cy="368" r="27"/></g>`;
+            s += `<circle cx="742" cy="412" r="95" fill="url(#gGlow)" opacity=".55"/>` + smokeAt(776, 330, '#8a7088') + `<rect x="770" y="336" width="12" height="36" fill="#2f2136"/><path d="M690 392 L742 352 L794 392Z" fill="#2f2136"/><rect x="698" y="390" width="88" height="56" fill="#3b2a40"/><rect x="712" y="402" width="18" height="16" fill="#ffd27a"/><rect x="752" y="402" width="18" height="16" fill="#ffd27a"/><rect x="733" y="420" width="14" height="26" fill="#241827"/>`;
+            if (o.city) s += actor('kayla', 'kayla', 120, 500, .8, { mood: 'smile' });
+            for (let i = 0; i < 70; i++) { const x = rnd(0, 960), h = rnd(22, 60); s += `<path class="sway" style="animation-delay:-${rnd(0, 3).toFixed(1)}s;animation-duration:${rnd(2.5, 4).toFixed(1)}s" d="M${f1(x)} 541 Q${f1(x + rnd(-6, 6))} ${f1(540 - h / 2)} ${f1(x + rnd(-10, 10))} ${f1(540 - h)}" stroke="${i % 3 ? '#3d2618' : '#6a4526'}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`; }
+            return s;
+        };
+        S.kitchen = (o = {}) => {
+            const end = !!o.end;
+            let s = `<rect width="960" height="540" fill="url(#gWall)"/>`;
+            for (let x = 0; x < 960; x += 36)s += `<rect x="${x}" y="0" width="2" height="318" fill="#000" opacity=".04"/>`;
+            s += `<rect y="318" width="960" height="222" fill="#a8744a"/><rect y="312" width="960" height="10" fill="#7d5233"/>`;
+            for (let x = 0; x < 960; x += 48)s += `<rect x="${x}" y="322" width="2" height="218" fill="#000" opacity=".12"/>`;
+            s += `<rect x="372" y="78" width="216" height="182" rx="6" fill="#6f4a2e"/><rect x="384" y="90" width="192" height="158" fill="url(#gWinN)"/>` + stars(14, 240, 390, 570, 96) + `<circle cx="530" cy="130" r="18" fill="#fff4d0"/><circle cx="539" cy="124" r="16" fill="#172444"/><rect x="476" y="90" width="8" height="158" fill="#6f4a2e"/><rect x="384" y="165" width="192" height="8" fill="#6f4a2e"/>`;
+            s += `<rect x="350" y="66" width="260" height="8" rx="4" fill="#4a2f1c"/><path d="M356 70 Q382 170 360 300 L410 300 Q398 170 420 70Z" fill="#b0503c"/><path d="M604 70 Q578 170 600 300 L550 300 Q562 170 540 70Z" fill="#b0503c"/><path d="M372 80 Q392 180 376 296 M396 80 Q404 180 396 296 M588 80 Q568 180 584 296 M564 80 Q556 180 564 296" stroke="#e8c27a" stroke-width="3" fill="none" opacity=".6"/>`;
+            s += `<g id="wallBl" style="transition:opacity 1.5s;opacity:${o.blanket ? 0 : 1}">` + starBlanket(150, 190, 70) + `</g>`;
+            s += `<rect x="700" y="160" width="190" height="10" fill="#6f4a2e"/><rect x="712" y="124" width="26" height="36" rx="5" fill="#c9a86b" opacity=".9"/><rect x="746" y="112" width="22" height="48" rx="5" fill="#8fb3a3" opacity=".9"/><rect x="776" y="130" width="30" height="30" rx="5" fill="#d98c5f" opacity=".9"/><path d="M842 160 q-4 -26 -18 -34 M842 160 q2 -30 16 -38 M842 160 q-10 -18 -26 -18" stroke="#4f7f4a" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="830" y="146" width="24" height="16" rx="3" fill="#b0503c"/>`;
+            s += `<rect x="760" y="198" width="72" height="58" fill="#f3e6cf" stroke="#6f4a2e" stroke-width="5"/><rect x="768" y="206" width="56" height="42" fill="#c9b08a"/><circle cx="786" cy="222" r="7" fill="#7a5a3a"/><circle cx="806" cy="222" r="6" fill="#7a5a3a"/><path d="M776 248 q10 -18 20 0 M797 248 q9 -16 18 0" fill="#7a5a3a"/>`;
+            s += `<line x1="480" y1="0" x2="480" y2="70" stroke="#3a2a1e" stroke-width="3"/><circle id="lampGlow" cx="480" cy="110" r="340" fill="url(#gGlow)" opacity="${end ? .28 : .6}"/><path d="M450 70 L510 70 L528 104 L432 104Z" fill="#2f5d5a"/><ellipse cx="480" cy="106" rx="30" ry="6" fill="#ffe3a1"/>`;
+            s += actor('kokum', 'kokum', 320, 478, 1.16, { pose: 'upper', mood: o.km || (end ? 'sad' : 'smile'), armL: 'table', armR: 'table', cough: !!o.sick });
+            s += actor('kayla', 'kayla', 650, 478, 1.16, { pose: 'upper', mood: o.ym || (end ? 'worried' : 'smile'), armL: 'table', armR: 'table' });
+            if (o.blanket || o.drape) s += `<g id="drape" style="transition:opacity 1.5s;opacity:${o.blanket ? 1 : 0}"><path d="M598 302 Q650 280 702 302 L714 400 L674 400 L664 318 Q650 328 636 318 L626 400 L586 400Z" fill="#f1e6cf" stroke="#c9b79a" stroke-width="2"/><g transform="translate(608,360) scale(.17)">${starShape(100)}</g><g transform="translate(692,360) scale(.17)">${starShape(100)}</g></g>`;
+            s += `<rect x="120" y="392" width="720" height="18" rx="6" fill="#7a4a2c"/><rect x="138" y="408" width="684" height="132" fill="url(#gWood)"/><rect x="380" y="392" width="200" height="60" fill="#c9543f" opacity=".9"/><path d="M380 402 H580 M380 440 H580" stroke="#f1d49a" stroke-width="3"/>`;
+            for (let x = 160; x < 820; x += 70)s += `<rect x="${x}" y="420" width="2" height="120" fill="#000" opacity=".1"/>`;
+            s += mug(360, 394, '#d9d2c4') + mug(612, 394, '#4f7f8c') + bannock(480, 398);
+            if (o.flour) { s += `<ellipse cx="300" cy="392" rx="34" ry="12" fill="#f3e2c2" stroke="#d6bf96"/>`; for (let i = 0; i < 8; i++)s += `<circle class="puff" cx="${f1(rnd(275, 325))}" cy="${f1(rnd(372, 388))}" r="${f1(rnd(4, 8))}" fill="#ffffff" style="--dx:${rnd(-20, 20).toFixed(0)}px;animation-delay:-${rnd(0, 2.4).toFixed(1)}s"/>`; }
+            if (o.words) { [['tânisi · hello', 300], ['nôhkom · my grandmother', 256], ['nipiy · water', 212], ['askiy · the land', 168]].forEach(([w, y], i) => s += `<text class="wordf" style="animation-delay:${(.6 + i * 1.4).toFixed(1)}s" x="480" y="${y}" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="21" fill="#fff4c8" stroke="#3a2416" stroke-width="4" paint-order="stroke">${w}</text>`); }
+            return s;
+        };
+        function winterBack() {
+            let s = `<rect width="960" height="540" fill="url(#gWinter)"/><path d="M0 330 Q200 290 420 320 T960 300 V540 H0Z" fill="#dfe7ee"/>`;
+            for (let x = -10; x < 980; x += 20)s += spruce(x + rnd(-6, 6), 342 + rnd(-4, 4), rnd(.28, .42), '#3d5a4c');
+            s += `<path d="M0 360 Q480 346 960 362 V430 Q480 440 0 425Z" fill="url(#gIce)"/><path d="M80 380 H300 M420 392 H700 M600 372 H880 M160 404 H380" stroke="#ffffff" stroke-width="2" opacity=".7"/>`;
+            s += `<path d="M0 420 Q300 402 560 425 T960 418 V540 H0Z" fill="url(#gSnow)"/><path d="M0 470 Q200 460 420 474 T960 468" stroke="#c9d3de" stroke-width="3" fill="none" opacity=".6"/>`;
+            return s;
+        }
+        S.winter = () => {
+            let s = winterBack() + cabin(170, 425) + spruce(40, 480, 1.5) + spruce(905, 490, 1.7) + spruce(835, 472, 1.05);
+            s += actor('mom', 'mom', 400, 462, 1, { mood: 'smile' }) + actor('rose', 'rose', 470, 466, 1, { mood: 'smile' }) + dog(560, 462);
+            return s + snow(85);
+        };
+        S.plane = () => {
+            let s = winterBack() + spruce(40, 480, 1.5) + spruce(905, 500, 1.8);
+            s += `<g id="plane" style="transition:transform 7s cubic-bezier(.55,0,.9,.5);transform:translate(650px,420px)">${planeSVG('ski')}</g>`;
+            s += actor('officer', 'officer', 470, 464, 1, { mood: 'neutral' }) + actor('mom', 'mom', 300, 466, 1, { mood: 'worried', armR: 'reach' }) + actor('rose', 'rose', 355, 470, 1, { mood: 'sad' });
+            return s + snow(60);
+        };
+        S.camsell = () => {
+            let s = `<rect width="960" height="540" fill="url(#gOver)"/>`;
+            for (let x = 0; x < 960; x += 46)s += `<rect x="${x}" y="${rnd(300, 350).toFixed(0)}" width="40" height="120" fill="#b8b6b1"/>`;
+            s += `<path d="M0 420 Q480 402 960 420 V540H0Z" fill="url(#gSnow)"/>`;
+            s += `<rect x="150" y="235" width="660" height="195" fill="#8e4d3b" stroke="#5a2e22" stroke-width="2"/><rect x="142" y="226" width="676" height="12" fill="#6d3a2c"/><rect x="142" y="221" width="676" height="6" fill="#ffffff"/>`;
+            for (let y = 245; y < 430; y += 9)s += `<line x1="150" y1="${y}" x2="810" y2="${y}" stroke="#000" stroke-opacity=".07"/>`;
+            s += `<rect x="400" y="150" width="160" height="280" fill="#86463a" stroke="#5a2e22" stroke-width="2"/><rect x="392" y="140" width="176" height="12" fill="#6d3a2c"/><rect x="392" y="135" width="176" height="6" fill="#ffffff"/><path d="M420 136 L480 106 L540 136Z" fill="#6d3a2c"/><path d="M428 132 L480 108 L532 132" stroke="#ffffff" stroke-width="3" fill="none"/>`;
+            const win = (x, y) => `<rect x="${x}" y="${y}" width="22" height="34" fill="${Math.random() < .12 ? '#d8b878' : '#2b3139'}"/><rect x="${x}" y="${y + 16}" width="22" height="2" fill="#8e4d3b"/><rect x="${x - 2}" y="${y + 34}" width="26" height="3" fill="#f2efe8"/>`;
+            [250, 302, 354].forEach(y => { for (let x = 166; x < 790; x += 38) { if (x > 385 && x < 565) continue; s += win(x, y); } });
+            [165, 215, 265, 315].forEach(y => [430, 469, 508].forEach(x => s += win(x, y)));
+            s += `<rect x="440" y="362" width="8" height="68" fill="#d8ccb6"/><rect x="512" y="362" width="8" height="68" fill="#d8ccb6"/><rect x="434" y="356" width="92" height="8" fill="#d8ccb6"/><path d="M458 430 V388 Q480 368 502 388 V430Z" fill="#3a2a22"/><rect x="424" y="428" width="112" height="8" fill="#cfc6b6"/><rect x="414" y="436" width="132" height="8" fill="#e8e2d6"/>`;
+            s += `<ellipse cx="260" cy="432" rx="70" ry="12" fill="#ffffff"/><ellipse cx="700" cy="432" rx="80" ry="12" fill="#ffffff"/>`;
+            s += bare(60, 480, 1.3) + bare(900, 485, 1.4) + bare(820, 470, .9);
+            s += `<g><rect x="96" y="440" width="6" height="56" fill="#4a3a2e"/><rect x="266" y="440" width="6" height="56" fill="#4a3a2e"/><rect x="84" y="416" width="200" height="48" rx="3" fill="#f0e7d4" stroke="#4a3a2e" stroke-width="3"/><text x="184" y="436" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#3a2a1e">CHARLES CAMSELL</text><text x="184" y="454" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#3a2a1e">INDIAN HOSPITAL</text><rect x="84" y="411" width="200" height="7" rx="3" fill="#ffffff"/></g>`;
+            return s + snow(95);
+        };
+        S.ward = () => {
+            let s = `<polygon points="0,0 960,0 660,110 300,110" fill="#e4dccb"/><polygon points="0,0 300,110 300,320 0,540" fill="#e6dfcd"/><polygon points="960,0 660,110 660,320 960,540" fill="#dcd4c1"/><rect x="300" y="110" width="360" height="210" fill="url(#gWardWall)"/><polygon points="300,320 660,320 960,540 0,540" fill="url(#gWardFloor)"/>`;
+            for (let i = 0; i <= 10; i++)s += `<line x1="${300 + i * 36}" y1="320" x2="${-240 + i * 144}" y2="540" stroke="#000" stroke-opacity=".08"/>`;
+            s += `<rect x="0" y="0" width="960" height="4" fill="#cfc6b3"/><line x1="300" y1="250" x2="0" y2="360" stroke="#b9ae98" stroke-width="3"/><line x1="660" y1="250" x2="960" y2="360" stroke="#b9ae98" stroke-width="3"/><line x1="300" y1="250" x2="660" y2="250" stroke="#b9ae98" stroke-width="3"/>`;
+            [335, 450, 565].forEach(x => { s += `<rect x="${x}" y="128" width="60" height="112" fill="#fbf5e3" stroke="#9c9480" stroke-width="3"/><path d="M${x + 30} 128 V240 M${x} 184 H${x + 60}" stroke="#9c9480" stroke-width="2"/><polygon points="${x},150 ${x + 60},150 ${x + 150},540 ${x - 60},540" fill="url(#beam)" opacity=".4"/>`; });
+            s += bedS(360, 318, .42) + bedS(295, 352, .6) + bedS(600, 318, .42, true) + bedS(665, 352, .6, true) + bedS(430, 305, .3) + bedS(530, 305, .3, true);
+            s += motes(45, 300, 760, 150, 520);
+            s += `<path d="M50 540 V362 M60 362 V440 M72 362 V440 M84 362 V440 M44 362 H94 M50 440 H94" stroke="#5f6468" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="70" y="440" width="490" height="40" rx="4" fill="#f4f1ea" stroke="#cfc8ba"/><path d="M560 540 V404 M548 404 H572 M540 440 H572" stroke="#5f6468" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="80" y="480" width="470" height="8" fill="#5f6468"/>`;
+            s += actor('roseBed', 'rose', 130, 432, 1.15, { mood: 'sad' }, 'bed');
+            s += actor('nurse', 'nurse', 770, 562, 1.4, { mood: 'neutral' });
+            return s;
+        };
+        S.night = () => {
+            let s = `<rect width="960" height="540" fill="#1b1a2a"/><rect y="430" width="960" height="110" fill="#262233"/><rect x="320" y="60" width="320" height="310" fill="#3a2e28"/><rect x="335" y="75" width="290" height="280" fill="url(#gNight)"/>`;
+            s += `<g clip-path="url(#winClip)">` + stars(22, 250, 340, 620) + `<circle cx="560" cy="140" r="110" fill="url(#gMoon)"/><circle cx="560" cy="140" r="34" fill="#fff7df"/>`;
+            for (let x = 335; x < 625; x += 34) { const h = rnd(24, 70); s += `<rect x="${x}" y="${355 - h}" width="30" height="${h}" fill="#0c1022"/>`; for (let j = 0; j < 3; j++)if (Math.random() < .5) s += `<rect x="${x + rnd(4, 22)}" y="${355 - h + rnd(6, h - 8)}" width="3" height="4" fill="#ffd27a"/>`; }
+            s += `</g>` + snow(55, 'winClip');
+            s += `<rect x="476" y="75" width="8" height="280" fill="#3a2e28"/><rect x="335" y="211" width="290" height="8" fill="#3a2e28"/><rect x="305" y="364" width="350" height="16" fill="#4a3a30"/><polygon points="335,380 625,380 800,540 160,540" fill="#cfe0ff" opacity=".1"/>`;
+            s += `<g id="glows">`; for (let i = 0; i < 16; i++)s += `<circle class="rise" cx="${480 + rnd(-20, 20)}" cy="${rnd(330, 350)}" r="${rnd(2, 4.5).toFixed(1)}" fill="#ffe7a8" style="--dx:${rnd(-80, 80).toFixed(0)}px;animation-delay:-${rnd(0, 5).toFixed(1)}s;animation-duration:${rnd(4, 6.5).toFixed(1)}s"/>`; s += `</g>`;
+            s += actor('roseBack', 'rose', 480, 478, 1.2, {}, 'back');
+            return s;
+        };
+        S.summer = (o = {}) => {
+            let s = `<rect width="960" height="540" fill="url(#gSummer)"/><circle cx="820" cy="80" r="160" fill="url(#gGlow)" opacity=".6"/><circle cx="820" cy="80" r="38" fill="#fff1c4"/>`;
+            s += `<path d="M0 320 Q240 280 480 310 T960 300 V360 H0Z" fill="#5f8a55"/>`;
+            for (let x = -10; x < 980; x += 22)s += spruce(x + rnd(-6, 6), 338 + rnd(-4, 4), rnd(.28, .42), '#3f6b48').replace(/fill="#ffffff" opacity=".85"/, 'fill="none"');
+            s += `<rect y="335" width="960" height="90" fill="url(#gLake)"/>`;
+            for (let i = 0; i < 24; i++)s += `<rect class="sparkle" x="${rnd(0, 960).toFixed(0)}" y="${rnd(345, 415).toFixed(0)}" width="${rnd(8, 22).toFixed(0)}" height="2" fill="#ffffff" style="animation-delay:-${rnd(0, 2).toFixed(1)}s"/>`;
+            if (!o.now) s += `<g transform="translate(790,372) scale(.72)">${planeSVG('float')}</g>`;
+            s += `<polygon points="560,408 900,398 920,418 580,432" fill="#8a6a48"/><path d="M600 431 V470 M700 426 V466 M860 418 V458" stroke="#5e4630" stroke-width="7"/>`;
+            for (let x = 570; x < 910; x += 18)s += `<line x1="${x}" y1="${409 - (x - 560) * .03}" x2="${x + 20}" y2="${431 - (x - 560) * .04}" stroke="#5e4630" stroke-opacity=".4"/>`;
+            s += `<path d="M0 425 Q280 405 560 432 T960 440 V540 H0Z" fill="url(#gGrass)"/>`;
+            for (let i = 0; i < 40; i++) { const x = rnd(0, 960), y = rnd(450, 535); s += `<circle cx="${f1(x)}" cy="${f1(y)}" r="3" fill="${['#f2d45c', '#ffffff', '#e98a6a'][i % 3]}"/>`; }
+            for (let i = 0; i < 60; i++) { const x = rnd(0, 960), h = rnd(14, 34); s += `<path class="sway" style="animation-delay:-${rnd(0, 3).toFixed(1)}s" d="M${f1(x)} 541 Q${f1(x + rnd(-5, 5))} ${f1(540 - h / 2)} ${f1(x + rnd(-8, 8))} ${f1(540 - h)}" stroke="#4f7036" stroke-width="2.4" fill="none" stroke-linecap="round"/>`; }
+            [[60, 14], [140, 17], [220, 12]].forEach(([y, d], i) => s += `<g class="bird" style="animation-duration:${d}s;animation-delay:-${i * 4}s"><path class="flap" d="M0 ${y} q8 -8 16 0 q8 -8 16 0" stroke="#3a3a3a" stroke-width="2.4" fill="none"/></g>`);
+            if (o.now) { s += actor('kokum', 'kokum', o.still ? 660 : 800, o.still ? 426 : 420, .9, { mood: 'smile' }) + actor('kayla', 'kayla', o.still ? 750 : 880, o.still ? 422 : 416, .9, { mood: 'smile' }); }
+            else { s += actor('mom', 'mom', 160, 472, 1, { mood: 'worried', coat: false, top: '#6d8b74', scarf: '#c9a227', armL: 'reach', armR: 'reach' }); s += actor('rose', 'rose', 650, 440, 1.12, { mood: 'neutral' }); }
+            return s;
+        };
+        S.livingroom = () => {
+            let s = `<rect width="960" height="540" fill="#4b3f57"/>`;
+            for (let x = 0; x < 960; x += 40)s += `<rect x="${x}" y="0" width="2" height="400" fill="#000" opacity=".05"/>`;
+            s += `<rect y="400" width="960" height="140" fill="#5a4136"/><rect y="394" width="960" height="8" fill="#3e2c24"/>`;
+            s += `<rect x="618" y="70" width="230" height="190" rx="6" fill="#3a2a22"/><rect x="630" y="82" width="206" height="166" fill="url(#gWinN)"/>` + stars(16, 190, 634, 832, 88) + `<circle cx="790" cy="118" r="16" fill="#fff4d0"/>`;
+            for (let x = 632; x < 834; x += 26) { const h = rnd(20, 58); s += `<rect x="${x}" y="${f1(248 - h)}" width="22" height="${f1(h)}" fill="#0c1022"/>`; if (Math.random() < .7) s += `<rect x="${f1(x + rnd(4, 14))}" y="${f1(248 - h + rnd(6, h - 10))}" width="4" height="5" fill="#ffd27a"/>`; }
+            s += `<rect x="730" y="82" width="6" height="166" fill="#3a2a22"/><rect x="630" y="162" width="206" height="6" fill="#3a2a22"/>`;
+            s += `<rect x="330" y="130" width="76" height="60" fill="#f3e6cf" stroke="#3a2a22" stroke-width="5"/><rect x="338" y="138" width="60" height="44" fill="#9fb5c0"/><circle cx="356" cy="156" r="7" fill="#7a5a3a"/><circle cx="378" cy="158" r="6" fill="#7a5a3a"/><path d="M346 182 q10 -16 20 0 M368 182 q10 -14 20 0" fill="#7a5a3a"/>`;
+            s += `<circle cx="150" cy="190" r="300" fill="url(#gGlow)" opacity=".45"/><line x1="150" y1="200" x2="150" y2="470" stroke="#2a2420" stroke-width="5"/><ellipse cx="150" cy="472" rx="30" ry="7" fill="#2a2420"/><path d="M116 150 L184 150 L200 202 L100 202Z" fill="#e8c27a" stroke="#b8924a" stroke-width="2"/>`;
+            s += `<ellipse cx="480" cy="518" rx="320" ry="26" fill="#7a3f3a" opacity=".55"/>`;
+            s += `<rect x="262" y="318" width="436" height="150" rx="30" fill="#6d4b3e" stroke="rgba(0,0,0,.3)" stroke-width="2"/><rect x="298" y="336" width="172" height="94" rx="20" fill="#7d5747"/><rect x="490" y="336" width="172" height="94" rx="20" fill="#7d5747"/>`;
+            s += `<rect x="236" y="380" width="58" height="116" rx="22" fill="#7a5446" stroke="rgba(0,0,0,.25)"/><rect x="666" y="380" width="58" height="116" rx="22" fill="#7a5446" stroke="rgba(0,0,0,.25)"/><rect x="284" y="452" width="392" height="46" rx="10" fill="#5e4034"/>`;
+            s += `<rect x="750" y="430" width="96" height="74" fill="#3e2c24"/><rect x="768" y="404" width="60" height="26" rx="4" fill="#161616"/><text x="798" y="423" text-anchor="middle" font-family="Courier New,monospace" font-size="15" font-weight="bold" fill="#ff6a5a">2:47</text>`;
+            s += actor('donna', 'donna', 420, 505, 1, { pose: 'sit', mood: 'worried', armL: 'hug', armR: 'hug' });
+            s += actor('kayla', 'kayla', 548, 505, .95, { pose: 'sit', mood: 'sad', armL: 'reach' });
+            return s;
+        };
+        S.triage = () => {
+            let s = `<rect width="960" height="540" fill="#dde6e6"/><rect y="250" width="960" height="150" fill="#cfdcdc"/><rect y="246" width="960" height="6" fill="#9fb7b7"/><rect y="400" width="960" height="140" fill="#b6c0bd"/>`;
+            for (let x = 0; x < 1100; x += 70)s += `<line x1="${x}" y1="400" x2="${x - 140}" y2="540" stroke="#000" stroke-opacity=".06"/>`;
+            s += ceilingLights();
+            s += `<rect x="70" y="110" width="120" height="150" fill="#ffffff" stroke="#9fb7b7" stroke-width="3"/><rect x="86" y="128" width="88" height="14" fill="#2f6f8f"/><path d="M86 160 H174 M86 176 H160 M86 192 H170 M86 208 H150 M86 224 H166" stroke="#b9c7c7" stroke-width="5"/>`;
+            s += `<rect x="580" y="64" width="230" height="52" rx="6" fill="#2f6f8f"/><text x="695" y="99" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="26" font-weight="bold" letter-spacing="5" fill="#ffffff">TRIAGE</text>`;
+            s += actor('staff', 'staff', 740, 470, 1, { pose: 'upper', mood: 'neutral', armL: 'table', armR: 'table' });
+            s += `<rect x="540" y="150" width="380" height="226" fill="#d6eef6" opacity=".22" stroke="#9fb7b7" stroke-width="4"/><path d="M570 170 L620 230 M590 170 L660 250" stroke="#ffffff" stroke-width="4" opacity=".5"/>`;
+            s += `<rect x="604" y="294" width="92" height="64" rx="5" fill="#3a4045"/><rect x="642" y="358" width="16" height="16" fill="#3a4045"/>`;
+            s += `<rect x="520" y="370" width="420" height="14" rx="4" fill="#8fa3aa"/><rect x="532" y="384" width="396" height="122" fill="#c3cfd2" stroke="#9fb0b5" stroke-width="2"/><rect x="540" y="350" width="22" height="22" rx="3" fill="#e8f0f2" stroke="#9fb0b5"/><rect x="820" y="356" width="60" height="16" fill="#ffffff" stroke="#c7cfd2"/>`;
+            s += actor('kayla', 'kayla', 290, 505, .95, { mood: 'worried' });
+            s += actor('donna', 'donna', 400, 505, 1, { mood: 'worried', armL: 'hug', armR: 'hug' });
+            return s;
+        };
+        S.waiting = () => {
+            let s = `<rect width="960" height="540" fill="#e4ebe5"/><rect y="290" width="960" height="110" fill="#c9d8cf"/><rect y="286" width="960" height="6" fill="#8fb0a2"/><rect y="400" width="960" height="140" fill="#bfc6b9"/>`;
+            for (let x = 0; x < 960; x += 48)s += `<rect x="${x}" y="400" width="2" height="140" fill="#000" opacity=".06"/>`;
+            s += ceilingLights();
+            s += `<g transform="translate(480,118)"><circle r="54" fill="#ffffff" stroke="#3a4045" stroke-width="6"/>`;
+            for (let i = 0; i < 12; i++)s += `<line x1="0" y1="-42" x2="0" y2="-48" stroke="#3a4045" stroke-width="3" transform="rotate(${i * 30})"/>`;
+            s += `<line x1="0" y1="4" x2="0" y2="-26" stroke="#3a4045" stroke-width="5" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="18s" repeatCount="indefinite"/></line><line x1="0" y1="6" x2="0" y2="-40" stroke="#3a4045" stroke-width="3" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1.5s" repeatCount="indefinite"/></line><circle r="4" fill="#c0392b"/></g>`;
+            s += `<rect x="370" y="186" width="220" height="32" rx="6" fill="#3a4045"/><text id="hrs" x="480" y="208" text-anchor="middle" font-family="Courier New,monospace" font-size="17" font-weight="bold" fill="#ffd27a">WAITING · 20 MIN</text>`;
+            s += `<rect x="826" y="146" width="128" height="30" rx="4" fill="#2f6f8f"/><text x="890" y="167" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="bold" letter-spacing="2" fill="#ffffff">TREATMENT</text><rect x="846" y="186" width="92" height="214" fill="#8fb0c0" stroke="#5f7f8f" stroke-width="4"/><rect x="860" y="206" width="30" height="54" fill="#dfeef4"/><circle cx="926" cy="300" r="5" fill="#3a4045"/>`;
+            [110, 200, 290, 540, 630, 720].forEach(x => s += chair(x));
+            s += actor('p1', 'p1', 200, 505, 1, { pose: 'sit', mood: 'neutral' });
+            s += actor('donna', 'donna', 540, 505, 1, { pose: 'sit', mood: 'worried', armL: 'hug', armR: 'hug' });
+            s += actor('kayla', 'kayla', 630, 505, .95, { pose: 'sit', mood: 'worried' });
+            s += actor('p2', 'p2', 720, 505, 1, { pose: 'sit', mood: 'neutral' });
+            return s;
+        };
+        S.postop = () => {
+            let s = `<rect width="960" height="540" fill="#dfe9e4"/><rect y="420" width="960" height="120" fill="#aab8b0"/><rect y="414" width="960" height="8" fill="#8a9a92"/>`;
+            s += `<rect x="620" y="70" width="240" height="200" rx="4" fill="#9fb0a8"/><rect x="632" y="82" width="216" height="176" fill="url(#gSummer)"/>`;
+            for (let y = 88; y < 258; y += 14)s += `<rect x="632" y="${y}" width="216" height="5" fill="#f3f1ea" opacity=".75"/>`;
+            s += `<polygon points="632,258 848,258 780,540 470,540" fill="url(#beam)" opacity=".35"/>`;
+            s += `<rect x="80" y="150" width="130" height="88" rx="6" fill="#2b3036" stroke="#5f6a70" stroke-width="3"/><path d="M92 198 H122 L130 176 L140 218 L148 194 H198" stroke="#6fe08a" stroke-width="3" fill="none" stroke-linejoin="round"/><circle class="blinkdot" cx="196" cy="164" r="4" fill="#6fe08a"/>`;
+            s += actor('kayla', 'kayla', 400, 458, 1, { pose: 'upper', mood: 'worried', armL: 'table', armR: 'table' });
+            s += `<line x1="580" y1="120" x2="580" y2="500" stroke="#8a969c" stroke-width="5"/><path d="M560 120 H600" stroke="#8a969c" stroke-width="4"/><rect x="566" y="126" width="28" height="44" rx="6" fill="#e8f4fa" stroke="#9fb7c4" stroke-width="2"/><ellipse cx="580" cy="502" rx="22" ry="5" fill="#7d898f"/>`;
+            s += hospBed() + actor('donnaBed', 'donna', 300, 404, 1.1, { mood: 'neutral' }, 'bed');
+            return s;
+        };
+        S.circle = () => {
+            let s = `<rect width="960" height="540" fill="#f3e6cf"/>`;
+            s += `<g class="pop" style="animation-delay:4.5s"><circle cx="480" cy="270" r="168" fill="none" stroke="#b0503c" stroke-width="3" stroke-dasharray="6 8"/></g>`;
+            [['M480 270 L360 270 A120 120 0 0 1 480 150Z', '#9fc5b0', 'Body', 428, 234], ['M480 270 L480 150 A120 120 0 0 1 600 270Z', '#e8c08a', 'Mind', 532, 234], ['M480 270 L600 270 A120 120 0 0 1 480 390Z', '#c9a6c9', 'Feelings', 532, 320], ['M480 270 L480 390 A120 120 0 0 1 360 270Z', '#a9c4e0', 'Spirit', 428, 320]].forEach((d, i) => s += `<g class="pop" style="animation-delay:${(.4 + i * .6).toFixed(1)}s"><path d="${d[0]}" fill="${d[1]}" stroke="#f3e6cf" stroke-width="4"/><text x="${d[3]}" y="${d[4]}" text-anchor="middle" font-family="Georgia,serif" font-size="21" fill="#3a2416">${d[2]}</text></g>`);
+            [['Family', 480, 82], ['Community', 290, 470], ['The land', 670, 470]].forEach(([t, x, y], i) => s += `<g class="pop" style="animation-delay:${(5 + i * .8).toFixed(1)}s"><rect x="${x - 74}" y="${y - 24}" width="148" height="40" rx="20" fill="#7a4a2c"/><text x="${x}" y="${y + 4}" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#fff1dc">${t}</text></g>`);
+            return s;
+        };
+        S.tree = () => {
+            let s = `<rect width="960" height="540" fill="#cfe3e8"/><circle cx="800" cy="90" r="40" fill="#fff1c4"/><rect y="320" width="960" height="220" fill="#7a5a3a"/><rect y="312" width="960" height="14" fill="#6f9a4f"/>`;
+            for (let i = 0; i < 50; i++)s += `<circle cx="${f1(rnd(0, 960))}" cy="${f1(rnd(335, 535))}" r="${f1(rnd(1.5, 3.5))}" fill="#6a4d32"/>`;
+            [['M480 326 Q410 370 290 450', 'language', 240, 478], ['M480 326 Q450 420 400 490', 'land', 372, 522], ['M480 326 Q510 420 560 490', 'community', 600, 522], ['M480 326 Q550 370 670 450', 'identity', 730, 478]].forEach(([d, t, x, y], i) => s += `<path class="rootdraw" d="${d}" stroke="#4a3322" stroke-width="10" fill="none" stroke-linecap="round"/><text class="pop" style="animation-delay:${(3 + i * .7).toFixed(1)}s" x="${x}" y="${y}" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#fff1dc">${t}</text>`);
+            s += `<rect class="grow" x="466" y="170" width="28" height="152" rx="6" fill="#6b4a2e"/>`;
+            s += `<g class="growc"><circle cx="480" cy="150" r="78" fill="#5e8f4a"/><circle cx="415" cy="185" r="56" fill="#6fa055"/><circle cx="545" cy="185" r="56" fill="#6fa055"/><circle cx="480" cy="118" r="50" fill="#7ab060"/></g>`;
+            for (let i = 0; i < 40; i++) { const x = rnd(0, 960), h = rnd(10, 24); s += `<path class="sway" style="animation-delay:-${rnd(0, 3).toFixed(1)}s" d="M${f1(x)} 318 Q${f1(x + rnd(-4, 4))} ${f1(318 - h / 2)} ${f1(x + rnd(-6, 6))} ${f1(318 - h)}" stroke="#4f7036" stroke-width="2.4" fill="none" stroke-linecap="round"/>`; }
+            return s;
+        };
+        S.room = (o = {}) => {
+            const n = !!o.night;
+            let s = `<rect width="960" height="540" fill="#dfe9e4"/><rect y="420" width="960" height="120" fill="#aab8b0"/><rect y="414" width="960" height="8" fill="#8a9a92"/>`;
+            s += `<rect x="560" y="70" width="220" height="190" rx="4" fill="#9fb0a8"/><rect x="572" y="82" width="196" height="166" fill="${n ? 'url(#gWinN)' : 'url(#gDusk)'}"/>`;
+            if (n) s += stars(14, 240, 576, 764, 88) + `<circle cx="720" cy="120" r="14" fill="#fff4d0"/>`;
+            s += `<rect x="667" y="82" width="6" height="166" fill="#9fb0a8"/>`;
+            s += `<rect x="800" y="150" width="120" height="80" rx="6" fill="#2b3036" stroke="#5f6a70" stroke-width="3"/><path d="M810 194 H836 L843 174 L852 212 L860 190 H910" stroke="#6fe08a" stroke-width="3" fill="none" stroke-linejoin="round"/><circle class="blinkdot" cx="906" cy="162" r="4" fill="#6fe08a"/>`;
+            s += `<rect x="30" y="170" width="112" height="250" fill="#b9a27e" stroke="#8a7458" stroke-width="4"/><rect x="44" y="190" width="30" height="60" fill="#dfeef4"/><circle cx="128" cy="300" r="5" fill="#5a4a3a"/>`;
+            s += `<rect x="250" y="110" width="160" height="100" fill="#fafafa" stroke="#b8c2c0" stroke-width="3"/><text x="264" y="140" font-family="Segoe UI,sans-serif" font-size="15" fill="#3a6a8a">Your nurse: Aleks</text><text x="264" y="166" font-family="Segoe UI,sans-serif" font-size="15" fill="#3a6a8a">Family welcome</text><path d="M264 186 H380" stroke="#c9d3d6" stroke-width="4"/>`;
+            s += `<rect x="147" y="360" width="56" height="92" rx="10" fill="#6f8f9a"/><rect x="143" y="450" width="64" height="14" rx="5" fill="#5e7d88"/><path d="M151 464 V505 M199 464 V505" stroke="#3a4045" stroke-width="4"/>`;
+            if (!n) { s += actor('donna', 'donna', 86, 505, 1, { mood: 'smile', hidden: true }); s += actor('aleks', 'aleks', 86, 505, 1, { mood: 'smile', hidden: true }); }
+            s += actor('kayla', 'kayla', 400, 458, 1, { pose: 'upper', mood: o.ym || (n ? 'smile' : 'worried'), armL: 'table', armR: 'table' });
+            s += `<line x1="740" y1="120" x2="740" y2="500" stroke="#8a969c" stroke-width="5"/><path d="M720 120 H760" stroke="#8a969c" stroke-width="4"/><rect x="726" y="126" width="28" height="44" rx="6" fill="#e8f4fa" stroke="#9fb7c4" stroke-width="2"/><ellipse cx="740" cy="502" rx="22" ry="5" fill="#7d898f"/>`;
+            s += hospBed() + actor('kokumBed', 'kokum', 300, 404, 1.1, { mood: n ? 'sleep' : 'worried' }, 'bed');
+            if (n) s += `<rect width="960" height="540" fill="#0a1030" opacity=".35"/><circle cx="420" cy="330" r="220" fill="url(#gGlow)" opacity=".22"/>`;
+            return s;
+        };
+        S.hall = () => {
+            let s = `<polygon points="0,0 960,0 560,190 400,190" fill="#eef2f1"/><polygon points="0,0 400,190 400,330 0,540" fill="#dfe8e6"/><polygon points="960,0 560,190 560,330 960,540" fill="#d6e0de"/><rect x="400" y="190" width="160" height="140" fill="#e8eeec"/><rect x="430" y="205" width="100" height="90" fill="#bfe0ee" stroke="#9fb0b0" stroke-width="3"/><polygon points="0,540 400,330 560,330 960,540" fill="#b9c2bd"/>`;
+            for (let i = 0; i <= 8; i++)s += `<line x1="${400 + i * 20}" y1="330" x2="${-400 + i * 220}" y2="540" stroke="#000" stroke-opacity=".05"/>`;
+            [[18, 160, 14], [92, 90, 8], [140, 56, 5], [168, 30, 3]].forEach(([y, w, h]) => s += `<rect x="${480 - w / 2}" y="${y}" width="${w}" height="${h}" fill="#ffffff"/>`);
+            s += `<polygon points="120,183 200,197 200,435 120,477" fill="#b9a27e" stroke="#8a7458" stroke-width="3"/><polygon points="270,209 320,218 320,372 270,398" fill="#b9a27e" stroke="#8a7458" stroke-width="3"/>`;
+            s += `<rect x="410" y="158" width="140" height="24" rx="3" fill="#2f6f8f"/><text x="480" y="175" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" font-weight="bold" fill="#ffffff">MENTAL HEALTH UNIT</text>`;
+            s += `<polygon points="780,193 880,176 880,498 780,445" fill="#3a4650" stroke="#8a7458" stroke-width="5"/>`;
+            s += actor('tyler', 'tyler', 835, 488, .9, { mood: 'neutral', armL: 'cross', armR: 'cross' });
+            s += `<text id="assume" x="360" y="240" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#5a6670" style="opacity:0;transition:opacity 1s">assumptions</text>`;
+            s += actor('kayla', 'kayla', 360, 510, 1.05, { ...STU, clip: true, mood: 'neutral' });
+            return s;
+        };
+        S.tyroom = (o = {}) => {
+            const L = !!o.later;
+            let s = `<rect width="960" height="540" fill="${L ? '#ece6d8' : '#e1ddd2'}"/><rect y="400" width="960" height="140" fill="#b8ad98"/><rect y="394" width="960" height="8" fill="#9a8f7a"/>`;
+            s += `<rect x="120" y="80" width="200" height="170" rx="4" fill="#9a8f7a"/><rect x="132" y="92" width="176" height="146" fill="url(#gSummer)"/><rect x="217" y="92" width="6" height="146" fill="#9a8f7a"/>`;
+            if (L) s += `<polygon points="132,238 308,238 420,540 60,540" fill="url(#beam)" opacity=".35"/><rect x="250" y="226" width="30" height="22" fill="#b0503c"/><path d="M265 226 q-6 -22 -18 -28 M265 226 q4 -26 16 -30 M265 226 q-2 -18 0 -30" stroke="#4f7f4a" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+            s += `<rect x="560" y="110" width="150" height="100" fill="#d9c49a" stroke="#9a8f7a" stroke-width="3"/><rect x="574" y="122" width="44" height="34" fill="#ffffff"/><rect x="630" y="128" width="64" height="44" fill="#f6efe0"/><rect x="584" y="166" width="40" height="30" fill="#e9f2f6"/>`;
+            s += chair(300, '#7a8a8c');
+            s += `<rect x="460" y="452" width="420" height="24" rx="8" fill="#e9e4d8"/><rect x="700" y="444" width="180" height="32" rx="6" fill="#6d8b9a"/><ellipse cx="846" cy="440" rx="34" ry="14" fill="#f7f3ea"/><rect x="452" y="476" width="436" height="12" fill="#8a7a62"/><path d="M470 488 V505 M870 488 V505" stroke="#6a5a44" stroke-width="6"/>`;
+            s += actor('kayla', 'kayla', 300, 505, 1, { ...STU, pose: 'sit', mood: L ? 'smile' : 'neutral' });
+            s += actor('tyler', 'tyler', 600, 505, 1, { pose: 'sit', mood: L ? 'smile' : 'neutral', armL: L ? 'reach' : 'cross', armR: L ? 'down' : 'cross' });
+            return s;
+        };
+        S.mirror = () => {
+            let s = `<rect width="960" height="540" fill="#5d6772"/><rect y="430" width="960" height="110" fill="#454d56"/>`;
+            for (let x = 0; x < 960; x += 60)s += `<rect x="${x}" y="0" width="2" height="430" fill="#000" opacity=".08"/>`;
+            s += `<circle cx="480" cy="60" r="220" fill="url(#gGlow)" opacity=".35"/><rect x="380" y="52" width="200" height="14" rx="6" fill="#fff4d0"/>`;
+            s += `<rect x="360" y="80" width="240" height="320" rx="10" fill="#8a96a0"/><rect x="372" y="92" width="216" height="296" fill="#c9d6dc"/>`;
+            s += `<g clip-path="url(#mirClip)">` + actor('kayla', 'kayla', 480, 470, 1.15, { ...STU, pose: 'upper', mood: 'neutral' }) + `<path d="M380 120 L430 92 M380 170 L470 92" stroke="#ffffff" stroke-width="6" opacity=".35"/></g>`;
+            s += `<rect x="320" y="400" width="320" height="30" rx="4" fill="#d9d4c8"/><rect x="340" y="430" width="280" height="110" fill="#bfb8a8"/>`;
+            s += `<text class="floatq" style="animation-delay:4s" x="185" y="210" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="28" fill="#fff1dc">What did I assume?</text>`;
+            s += `<g class="floatq" style="animation-delay:5.6s"><text x="785" y="270" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="28" fill="#fff1dc">Who did I really</text><text x="785" y="306" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="28" fill="#fff1dc">listen to?</text></g>`;
+            return s;
+        };
+
+        function setChap(n, name) { $('chapNum').textContent = n; $('chapName').textContent = name; }
+        function setReflect(t) { $('reflectQ').innerHTML = t; }
+        function setInfo(big, text, sm, src, bs) { const b = $('infoBig'); b.textContent = big; b.style.fontSize = bs || '12cqw'; $('infoText').innerHTML = text; $('infoSm').innerHTML = sm || ''; $('infoSrc').textContent = src || ''; }
+        function setAct(n, t) { const a = $('actNum'), b = $('actText'); a.style.visibility = n ? 'visible' : 'hidden'; a.textContent = n; b.textContent = t;[a, b].forEach(e => { e.classList.remove('fadein'); void e.offsetWidth; e.classList.add('fadein'); }); }
+        const ACTS = ["Read the TRC's 94 Calls to Action, especially numbers 18 to 24 on health.", "Take a free course, such as the University of Alberta's Indigenous Canada.", "Learn whose land you live and work on, and what Treaty 6 means.", "Speak up when you see racism or bias in a clinical setting.", "On placement, ask about Indigenous liaison and Elder services, and offer them to patients.", "After every shift, ask yourself what you assumed, and who you really listened to."];
+
+        const CH = [
+            { card: 'noteCard', lines: [{ t: "Content note. This story includes the separation of children from families, and abuse in hospitals. Please take care while watching.", pause: 1800 }] },
+            { card: 'titleCard', lines: [{ t: "Waiting to Be Seen. Chapter one: Kokum's story.", pause: 1200 }] },
+            {
+                scene: 'prairie', z: [1, 1.08], o: [720, 420], lines: [
+                    { t: "My name is Kayla. I'm studying to become a nurse." },
+                    { t: "But this story doesn't start with me." },
+                    { t: "It starts with my kokum. My grandmother, Rose.", pause: 800 }]
+            },
+            {
+                scene: 'kitchen', z: [1.02, 1.1], o: [480, 280], lines: [
+                    { t: "Kokum is eighty-one years old." },
+                    { t: "She makes the best bannock in our family, and she laughs at her own jokes before she even finishes telling them.", act: () => mood('kokum', { mood: 'laugh' }) },
+                    { t: "But for most of her life, Kokum was afraid of hospitals.", act: () => { mood('kokum', { mood: 'sad' }); mood('kayla', { mood: 'neutral' }); } },
+                    { t: "One night, I finally asked her why.", act: () => { mood('kayla', { mood: 'worried' }); const l = q('#lampGlow'); if (l) l.style.opacity = .28; }, pause: 1200 }]
+            },
+            {
+                scene: 'winter', sepia: true, stamp: 'NORTHERN ALBERTA · WINTER 1952', z: [1, 1.08], o: [450, 420], lines: [
+                    { t: "In the winter of 1952, Kokum was seven years old." },
+                    { t: "She lived with her family beside a lake in northern Alberta." },
+                    { t: "That winter, she caught a cough that would not go away.", act: () => { mood('rose', { mood: 'worried', cough: true }); mood('mom', { mood: 'worried' }); }, pause: 800 }]
+            },
+            {
+                scene: 'plane', sepia: true, z: [1, 1.05], o: [480, 400], lines: [
+                    { t: "Government health teams were flying into northern communities to X-ray people for tuberculosis." },
+                    { t: "Rose's X-ray showed T.B. She was put on the plane that same day.", act: () => { mood('rose', { mood: 'cry' }); move('rose', 640, 470, 3.4); mood('mom', { mood: 'cry', armL: 'reach', armR: 'reach' }); } },
+                    { t: "Her mother was not allowed to go with her.", act: () => fade('rose', 0) },
+                    { t: "No one told them how long she would be gone.", act: () => { const p = q('#plane'); if (p) p.style.transform = 'translate(1300px,120px) rotate(-12deg)'; }, pause: 2000 }]
+            },
+            {
+                scene: 'camsell', sepia: true, stamp: 'EDMONTON · 1952', z: [1, 1.12], o: [480, 300], lines: [
+                    { t: "She was sent to the Charles Camsell Indian Hospital, in Edmonton." },
+                    { t: "It was the largest of the segregated hospitals the federal government ran for Indigenous patients." },
+                    { t: "Between 1936 and 1981, there were thirty-three of them across Canada.", pause: 800 }]
+            },
+            {
+                scene: 'ward', sepia: true, z: [1, 1.08], o: [250, 440], lines: [
+                    { t: "Kokum remembers long rows of iron beds, and the smell of bleach." },
+                    { t: "She wasn't allowed to speak Cree.", act: () => mood('nurse', { mood: 'stern', armR: 'point' }) },
+                    { t: "When she cried for her mother in her own language, she was punished.", act: () => mood('roseBed', { mood: 'cry' }) },
+                    { t: "Survivors have described patients being tied to their beds, and children kept in body casts for months.", pause: 1000 }]
+            },
+            {
+                scene: 'night', sepia: true, z: [1, 1.1], o: [480, 300], lines: [
+                    { t: "Kokum stayed there for almost two years." },
+                    { t: "At night, she whispered Cree words to herself at the window, so she wouldn't forget them.", act: () => turnOn('glows') },
+                    { t: "Some children never made it home at all.", pause: 1300 }]
+            },
+            {
+                scene: 'summer', sepia: true, stamp: 'SUMMER 1954', z: [1, 1.06], o: [420, 430], lines: [
+                    { t: "When Rose finally came home, she was nine.", act: () => { move('mom', 400, 472, 2.6); move('rose', 520, 462, 2.6); } },
+                    { t: "Her mother held her, and cried.", act: () => { mood('mom', { mood: 'happycry' }); move('mom', 452, 472, 1.2, false); } },
+                    { t: "But Rose had changed. She was quiet. She had forgotten many of her words.", act: () => mood('rose', { mood: 'sad' }) },
+                    { t: "And she had learned a lesson she would carry for the rest of her life.", pause: 800 }]
+            },
+            {
+                scene: 'kitchen', args: { end: true }, z: [1.05, 1.45], o: [320, 262], lines: [
+                    { t: "Hospitals are where they take things from you, my girl.", voice: 'kokum', who: 'Kokum', quote: true, pause: 1400 },
+                    { t: "Kokum's fear didn't end with her." },
+                    { t: "It was passed down... to my mom.", pause: 1500 }]
+            },
+            {
+                card: 'infoCard', set: () => setInfo('33', "Between 1936 and 1981, Canada’s federal government ran <b>33 “Indian hospitals.”</b> The Charles Camsell in Edmonton was the largest.", "In 2025, the Federal Court approved a settlement for survivors who were abused in these hospitals.", "Source: The Canadian Press, June 26, 2025"), lines: [
+                    { t: "Between 1936 and 1981, Canada's federal government ran thirty-three Indian hospitals. The Charles Camsell in Edmonton was the largest." },
+                    { t: "In 2025, the Federal Court approved a settlement for survivors who were abused in them.", pause: 1000 }]
+            },
+            { card: 'reflectCard', set: () => setReflect("What would it take for Kokum<br>to trust a hospital again?"), lines: [{ t: "Pause and reflect. What would it take for Kokum to trust a hospital again?", pause: 6000 }] },
+
+            { card: 'chapCard', set: () => setChap('Chapter 2', 'The Long Wait'), lines: [{ t: "Chapter two. The long wait.", pause: 1000 }] },
+            {
+                scene: 'livingroom', stamp: 'EDMONTON · 2019', z: [1, 1.08], o: [480, 400], lines: [
+                    { t: "When I was sixteen, my mom woke up with a pain in her side so bad she couldn't stand." },
+                    { t: "She hated hospitals, just like Kokum." },
+                    { t: "But that night, she had no choice.", pause: 700 }]
+            },
+            {
+                scene: 'triage', z: [1, 1.1], o: [560, 320], lines: [
+                    { t: "At the triage desk, the first question wasn't about her pain." },
+                    { t: "Have you been drinking tonight?", voice: 'staff', who: 'Staff', quote: true, pause: 1200 },
+                    { t: "She hadn't. She told them that.", act: () => mood('donna', { mood: 'sad' }) },
+                    { t: "But I saw the way they looked at her.", act: () => { mood('staff', { mood: 'stern' }); mood('kayla', { mood: 'worried' }); }, pause: 1000 }]
+            },
+            {
+                scene: 'waiting', z: [1, 1.06], o: [480, 220], lines: [
+                    { t: "We waited." },
+                    { t: "One hour. Five hours. Nine hours.", act: () => { const set = x => { const e = q('#hrs'); if (e) e.textContent = x; }; set('WAITING · 1 HR'); setTimeout(() => set('WAITING · 5 HRS'), 1300); setTimeout(() => set('WAITING · 9 HRS'), 2600); } },
+                    { t: "People who came in after us were called first.", act: () => { mood('p2', { pose: 'stand' }); setTimeout(() => move('p2', 892, 505, 3), 300); setTimeout(() => fade('p2', 0), 3300); } },
+                    { t: "Mom finally stood up and said, \"Let's go home. They're not going to see me.\"", act: () => { mood('donna', { pose: 'stand', mood: 'sad' }); mood('kayla', { mood: 'sad' }); }, pause: 1200 }]
+            },
+            {
+                scene: 'postop', z: [1, 1.08], o: [380, 380], lines: [
+                    { t: "Two days later, her appendix burst. She needed emergency surgery." },
+                    { t: "She survived.", act: () => mood('donnaBed', { mood: 'smile' }) },
+                    { t: "Not everyone does.", act: () => mood('kayla', { mood: 'sad' }), pause: 1400 }]
+            },
+            {
+                card: 'sinclairCard', lines: [
+                    { t: "In 2008, Brian Sinclair, a First Nations man, waited 34 hours in a Winnipeg emergency room." },
+                    { t: "He was never triaged. He died of a treatable bladder infection." },
+                    { t: "Staff had assumed he was intoxicated.", pause: 1800 }]
+            },
+            {
+                card: 'echaquanCard', lines: [
+                    { t: "In 2020, Joyce Echaquan, an Atikamekw mother of seven, recorded hospital staff insulting her with racist comments in Joliette, Quebec." },
+                    { t: "She died shortly after.", pause: 1800 }]
+            },
+            {
+                card: 'plainSightCard', lines: [
+                    { t: "That same year, a British Columbia report called In Plain Sight found widespread racism against Indigenous patients in health care.", pause: 1200 }]
+            },
+            {
+                scene: 'kitchen', args: { end: true }, z: [1.02, 1.12], o: [480, 300], lines: [
+                    { t: "I used to think Kokum's fear was about the past." },
+                    { t: "That night, I realized it wasn't.", pause: 1500 }]
+            },
+            { card: 'reflectCard', set: () => setReflect("Have I ever decided what a patient needed<br>before I heard their story?"), lines: [{ t: "Pause and reflect. Have I ever decided what a patient needed before I heard their story?", pause: 6000 }] },
+
+            { card: 'chapCard', set: () => setChap('Chapter 3', 'What Heals Us'), lines: [{ t: "Chapter three. What heals us.", pause: 1000 }] },
+            {
+                scene: 'kitchen', z: [1, 1.08], o: [480, 300], lines: [
+                    { t: "After that night, I asked Kokum to teach me what she had almost lost.", pause: 600 }]
+            },
+            {
+                scene: 'kitchen', args: { flour: true }, z: [1.05, 1.3], o: [320, 330], lines: [
+                    { t: "We made bannock together, the way her mother taught her when she finally came home.", act: () => mood('kokum', { mood: 'laugh' }) }]
+            },
+            {
+                scene: 'kitchen', args: { words: true }, z: [1, 1.06], o: [480, 260], lines: [
+                    { t: "She taught me Cree words, one at a time, the way she used to whisper them at that hospital window.", pause: 1600 }]
+            },
+            {
+                scene: 'summer', args: { now: true }, z: [1, 1.08], o: [740, 400], lines: [
+                    { t: "In the summer, she took me back to the lake where she grew up.", act: () => { move('kokum', 660, 426, 4); move('kayla', 750, 422, 4); } },
+                    { t: "She told me the land remembers us.", pause: 900 }]
+            },
+            {
+                scene: 'circle', z: [1, 1.04], o: [480, 270], lines: [
+                    { t: "Kokum says being well means being in balance." },
+                    { t: "Body, mind, feelings and spirit, held together by family, community and the land.", pause: 1000 }]
+            },
+            {
+                card: 'infoCard', set: () => setInfo('Hope · Belonging · Meaning · Purpose', 'The <i>First Nations Mental Wellness Continuum Framework</i> puts culture at the centre of mental wellness.', '', 'Health Canada and Assembly of First Nations, 2015', '5cqw'), lines: [
+                    { t: "The First Nations Mental Wellness Continuum Framework puts culture at the centre of mental wellness." },
+                    { t: "It describes wellness as hope, belonging, meaning and purpose.", pause: 900 }]
+            },
+            {
+                scene: 'tree', z: [1, 1.06], o: [480, 330], lines: [
+                    { t: "Researchers in British Columbia found that First Nations communities with stronger cultural continuity had far lower youth suicide rates." },
+                    { t: "Culture isn't only tradition. It protects.", pause: 1100 }]
+            },
+            {
+                scene: 'summer', args: { now: true, still: true }, z: [1.04, 1.12], o: [480, 300], lines: [
+                    { t: "Every Nation and every family is different." },
+                    { t: "Some find strength in prayer, ceremony or smudging. Others find it in language, food or the land.", pause: 800 }]
+            },
+            {
+                scene: 'kitchen', args: { km: 'laugh' }, z: [1.05, 1.4], o: [320, 262], lines: [
+                    { t: "They took my words for two years. They didn't get to keep them.", voice: 'kokum', who: 'Kokum', quote: true, act: () => setTimeout(() => mood('kokum', { mood: 'neutral' }), 1800), pause: 1400 }]
+            },
+            { card: 'reflectCard', set: () => setReflect("What gives me hope, belonging, meaning and purpose?<br>Do I ask my patients the same question?"), lines: [{ t: "Pause and reflect. What gives me hope, belonging, meaning and purpose? Do I ask my patients the same question?", pause: 6000 }] },
+
+            { card: 'chapCard', set: () => setChap('Chapter 4', 'Kokum Goes Back'), lines: [{ t: "Chapter four. Kokum goes back.", pause: 1000 }] },
+            {
+                scene: 'kitchen', args: { sick: true, km: 'worried', ym: 'worried' }, stamp: 'EDMONTON · WINTER 2025', z: [1, 1.08], o: [400, 300], lines: [
+                    { t: "Last winter, Kokum got pneumonia. At eighty-one, she needed to go to hospital." },
+                    { t: "Not there, my girl. Please.", voice: 'kokum', who: 'Kokum', quote: true, act: () => mood('kokum', { mood: 'sad', cough: false }), pause: 1200 }]
+            },
+            {
+                scene: 'room', z: [1, 1.06], o: [300, 360], lines: [
+                    { t: "I held her hand the whole way. I could feel her shaking." },
+                    { t: "Then a nurse named Aleks came in. She knocked first. She pulled up a chair so her eyes were level with Kokum's.", act: () => { fade('aleks', 1); setTimeout(() => move('aleks', 175, 505, 2), 900); setTimeout(() => mood('aleks', { pose: 'sit' }), 3000); } },
+                    { t: "Hi, I'm Aleks. I'll be your nurse tonight. What would you like me to call you?", voice: 'aleks', who: 'Aleks', quote: true },
+                    { t: "Before every test, Aleks explained what she was doing and why, and asked if it was okay.", act: () => { mood('aleks', { armR: 'wave' }); mood('kokumBed', { mood: 'neutral' }); } },
+                    { t: "She asked if Kokum wanted to meet the hospital's Indigenous liaison, and said our family could stay.", act: () => { mood('aleks', { armR: 'down' }); fade('donna', 1); } },
+                    { t: "What matters most to you while you're here?", voice: 'aleks', who: 'Aleks', quote: true },
+                    { t: "My family. And my words.", voice: 'kokum', who: 'Kokum', quote: true, act: () => mood('kokumBed', { mood: 'smile' }), pause: 900 },
+                    { t: "So Aleks asked Kokum to teach her a Cree word. Kokum laughed for the first time in days.", act: () => { mood('kokumBed', { mood: 'laugh' }); mood('aleks', { mood: 'laugh' }); mood('kayla', { mood: 'smile' }); }, pause: 900 }]
+            },
+            {
+                card: 'infoCard', set: () => setInfo('Cultural safety', 'is defined by the patient.', 'The idea comes from Māori nurse Irihapeti Ramsden in Aotearoa (New Zealand).', 'Ramsden, 2002', '7cqw'), lines: [
+                    { t: "This is called cultural safety. The idea comes from Māori nurse Irihapeti Ramsden." },
+                    { t: "Only the patient can say whether care felt safe.", pause: 900 }]
+            },
+            { card: 'stratCard', lines: [{ t: "Trauma-informed care means explaining, asking permission, offering choices, and making room for family and culture.", pause: 1500 }] },
+            {
+                scene: 'room', args: { night: true }, z: [1.04, 1.14], o: [300, 380], lines: [
+                    { t: "Seventy-three years after the Camsell, Kokum slept through the night in a hospital.", pause: 1800 }]
+            },
+            { card: 'reflectCard', set: () => setReflect("Would my patients say<br>my care felt safe?"), lines: [{ t: "Pause and reflect. Would my patients say my care felt safe?", pause: 6000 }] },
+
+            { card: 'chapCard', set: () => setChap('Chapter 5', "Kayla's Placement"), lines: [{ t: "Chapter five. Kayla's placement.", pause: 1000 }] },
+            {
+                scene: 'hall', stamp: 'EDMONTON · 2026', z: [1, 1.08], o: [400, 330], lines: [
+                    { t: "This year, I started my psychiatric nursing placement. On my first shift, I read Tyler's chart.", pause: 400 }]
+            },
+            {
+                card: 'chartCard', lines: [
+                    { t: "He was nineteen, admitted after a crisis." },
+                    { t: "His chart said non-compliant. Refuses to engage.", pause: 1100 }]
+            },
+            {
+                scene: 'hall', z: [1.02, 1.12], o: [480, 330], lines: [
+                    { t: "And for a second, I believed it. I saw the label before I saw him.", act: () => { mood('kayla', { fog: true }); show('assume', 1); blur('tyler', true); }, pause: 800 },
+                    { t: "Then I thought about my mom in that waiting room, and about Kokum.", act: () => { mood('kayla', { fog: false, mood: 'worried' }); show('assume', 0); blur('tyler', false); }, pause: 800 }]
+            },
+            {
+                scene: 'tyroom', z: [1, 1.06], o: [450, 380], lines: [
+                    { t: "I knocked, sat down, and told him who I was. I didn't ask him to trust me." },
+                    { t: "My mom says hospitals don't help people like us.", voice: 'tyler', who: 'Tyler', quote: true, pause: 800 },
+                    { t: "That makes sense. You don't have to trust me yet. What would help you feel a little safer here?", who: 'Kayla', quote: true, act: () => mood('kayla', { mood: 'smile' }), pause: 800 },
+                    { t: "He asked if he could talk to an Elder. Nobody had asked him what he wanted.", act: () => mood('tyler', { armL: 'down', armR: 'down' }), pause: 800 }]
+            },
+            {
+                card: 'eyesCard', lines: [
+                    { t: "His care team added visits from the Indigenous wellness team to his treatment plan." },
+                    { t: "Mi'kmaw Elder Albert Marshall calls this Two-Eyed Seeing: using the strengths of Indigenous and Western knowledge together.", say: "Meeg-maw Elder Albert Marshall calls this Two-Eyed Seeing: using the strengths of Indigenous and Western knowledge together.", pause: 1100 }]
+            },
+            {
+                scene: 'tyroom', args: { later: true }, stamp: 'ONE WEEK LATER', z: [1, 1.06], o: [450, 380], lines: [
+                    { t: "Over the next week, Tyler started to talk. Not because I said the right thing, but because I kept showing up.", pause: 800 }]
+            },
+            {
+                scene: 'mirror', z: [1, 1.08], o: [480, 260], lines: [
+                    { t: "Now, after every shift, I ask myself:" },
+                    { t: "What did I assume? Who did I really listen to?", pause: 1300 }]
+            },
+            { card: 'reflectCard', set: () => setReflect("What label have I accepted<br>before I knew the person behind it?"), lines: [{ t: "Pause and reflect. What label have I accepted before I knew the person behind it?", pause: 6000 }] },
+
+            { card: 'chapCard', set: () => setChap('Chapter 6', 'One Patient at a Time'), lines: [{ t: "Chapter six. One patient at a time.", pause: 1000 }] },
+            {
+                scene: 'kitchen', args: { drape: true }, z: [1, 1.08], o: [480, 300], lines: [
+                    { t: "I told Kokum about a young man I met on placement. No names, nothing that could identify him." },
+                    { t: "Just that he asked for an Elder, and nobody had asked him before." },
+                    { t: "She listened for a long time without saying anything.", act: () => mood('kokum', { mood: 'neutral' }) },
+                    { t: "Then she took the star blanket off the wall and put it around my shoulders.", act: () => { show('wallBl', 0); setTimeout(() => show('drape', 1), 900); mood('kokum', { mood: 'smile' }); }, pause: 1100 }]
+            },
+            {
+                scene: 'kitchen', args: { blanket: true, km: 'happycry', ym: 'smile' }, z: [1.05, 1.45], o: [320, 262], lines: [
+                    { t: "Maybe hospitals can be where they give things back, my girl. You make sure of it.", voice: 'kokum', who: 'Kokum', quote: true, pause: 1600 }]
+            },
+            {
+                scene: 'prairie', args: { city: true }, z: [1, 1.06], o: [400, 420], lines: [
+                    { t: "Kokum's fear was passed down to my mom.", act: () => move('kayla', 520, 500, 9) },
+                    { t: "I want what gets passed down from me to be different.", pause: 1300 }]
+            },
+            {
+                card: 'infoCard', set: () => setInfo('Call to Action #24', 'Truth and Reconciliation Commission of Canada', 'Nursing and medical schools should teach Indigenous health, the history and legacy of residential schools, and anti-racism.', 'Truth and Reconciliation Commission of Canada, 2015', '6.4cqw'), lines: [
+                    { t: "In 2015, the Truth and Reconciliation Commission asked every nursing and medical school in Canada to teach Indigenous health, the history of residential schools, and anti-racism." },
+                    { t: "This video is part of our answer.", pause: 900 }]
+            },
+            {
+                card: 'actCard', set: () => setAct('', ''), lines: [
+                    { t: "Here's what you can do, starting today.", pause: 200 },
+                    ...ACTS.map((a, i) => ({ t: a, nocap: true, act: () => setAct(i + 1, a), pause: 1100 }))]
+            },
+            { card: 'reflectCard', set: () => setReflect("Who will your patients<br>say you were?"), lines: [{ t: "Who will your patients say you were?", pause: 8000 }] },
+            { card: 'closingCard', lines: [{ t: "Trust is earned one patient at a time. Start with yours.", pause: 2200 }] },
+            {
+                card: 'supportCard', lines: [
+                    { t: "If this story brought up painful feelings, support is available 24 hours a day." },
+                    { t: "For Indigenous peoples, the Hope for Wellness Help Line is 1-855-242-3310. You can also call or text 9-8-8.", say: "For Indigenous peoples, the Hope for Wellness Help Line is 1, 8 5 5, 2 4 2, 3 3 1 0. You can also call or text 9 8 8.", pause: 2500 }]
+            },
+            { card: 'creditsCard', lines: [{ t: "Kayla's family is fictional. The history is real.", nocap: true, pause: 7000 }] }
+        ];
+
+        let RUN = 0, paused = false, front = 0, elapsed = 0, running = false;
+        const rate = () => parseFloat($('rate').value);
+        const VO = { kokum: { r: .82, p: .72 }, staff: { r: 1.08, p: .85 }, aleks: { r: 1, p: 1.12 }, tyler: { r: .98, p: .8 } };
+        function wait(ms, id) { return new Promise(res => { let left = ms; const iv = setInterval(() => { if (id !== RUN) { clearInterval(iv); res(); return; } if (!paused) { left -= 100; if (left <= 0) { clearInterval(iv); res(); } } }, 100); }); }
+        function getVoice() { return speechSynthesis.getVoices().find(v => v.name === $('voice').value); }
+        function speak(line, id) {
+            const est = Math.max(1600, line.t.split(/\s+/).length * 390 / rate());
+            if (!$('voiceOn').checked || !window.speechSynthesis) return wait(est, id);
+            return new Promise(res => {
+                let done = false, waited = 0, g = null;
+                const fin = () => { if (done) return; done = true; if (g) clearInterval(g); res(); };
+                const u = new SpeechSynthesisUtterance(line.say || line.t);
+                const v = getVoice(); if (v) u.voice = v;
+                const vo = VO[line.voice] || { r: 1, p: 1 };
+                u.rate = rate() * vo.r; u.pitch = vo.p;
+                u.onend = fin; u.onerror = fin;
+                g = setInterval(() => { if (id !== RUN) { speechSynthesis.cancel(); fin(); return; } if (!paused) waited += 200; if (waited > est * 2.2 + 5000) fin(); }, 200);
+                speechSynthesis.speak(u);
+            });
+        }
+        function setCap(ln) { const c = $('cap'); if (!$('capOn').checked || ln.nocap) { c.className = ''; return; } c.className = ln.quote ? 'quote' : ''; c.textContent = ln.quote ? `“${ln.t}” — ${ln.who || 'Kokum'}` : ln.t; void c.offsetWidth; c.classList.add('show'); }
+        function hideCap() { $('cap').classList.remove('show'); }
+        const CARDS = ['noteCard', 'titleCard', 'chapCard', 'infoCard', 'reflectCard', 'sinclairCard', 'echaquanCard', 'plainSightCard', 'stratCard', 'chartCard', 'eyesCard', 'actCard', 'closingCard', 'supportCard', 'creditsCard'];
+        function showCard(id) { CARDS.forEach(c => $(c).classList.toggle('show', c === id)); }
+        function enter(sc) {
+            if (sc.card) { if (sc.set) sc.set(); showCard(sc.card); $('stamp').classList.remove('show'); return; }
+            showCard(null);
+            const nxt = $(front ? 'L0' : 'L1'), old = $(front ? 'L1' : 'L0');
+            const z = sc.z || [1, 1.06], o = sc.o || [480, 270];
+            REG = {};
+            nxt.innerHTML = `<g class="cam" style="transform-origin:${o[0]}px ${o[1]}px;--z0:${z[0]};--z1:${z[1]};animation-duration:${sc.dur || 26}s">${S[sc.scene](sc.args || {})}</g>`;
+            if (sc.sepia) nxt.setAttribute('filter', 'url(#sepia)'); else nxt.removeAttribute('filter');
+            $('layers').appendChild(nxt);
+            nxt.style.transition = 'none'; nxt.style.opacity = 0; void nxt.getBoundingClientRect();
+            nxt.style.transition = ''; nxt.style.opacity = 1;
+            CUR = nxt; front = 1 - front;
+            setTimeout(() => { if (old !== CUR) { old.style.transition = 'none'; old.style.opacity = 0; old.innerHTML = ''; setTimeout(() => old.style.transition = '', 50); } }, 1600);
+            const st = $('stamp'); if (sc.stamp) { st.textContent = sc.stamp; st.classList.add('show'); } else st.classList.remove('show');
+        }
+        function resetStage() { ['L0', 'L1'].forEach(i => { const l = $(i); l.style.transition = 'none'; l.style.opacity = 0; l.innerHTML = ''; setTimeout(() => l.style.transition = '', 50); }); CUR = null; front = 0; hideCap(); $('stamp').classList.remove('show'); showCard(CH[0].card); }
+        async function run() {
+            const id = ++RUN;
+            if (window.speechSynthesis) speechSynthesis.cancel();
+            paused = false; $('stage').classList.remove('paused'); elapsed = 0; running = true;
+            $('pause').disabled = false; $('pause').textContent = '❚❚ Pause'; $('play').textContent = '⟲ Restart';
+            resetStage(); await wait(300, id);
+            for (const sc of CH) {
+                if (id !== RUN) return;
+                enter(sc);
+                await wait(sc.card ? 700 : 1000, id);
+                for (const ln of sc.lines) {
+                    if (id !== RUN) return;
+                    if (ln.act) try { ln.act(); } catch (e) { console.error(e); }
+                    setCap(ln);
+                    await speak(ln, id);
+                    await wait(ln.pause ?? 400, id);
+                }
+                hideCap();
+                await wait(sc.hold ?? 300, id);
+            }
+            if (id === RUN) { running = false; $('pause').disabled = true; $('play').textContent = '⟲ Replay'; }
+        }
+        function togglePause() {
+            if (!running) return; paused = !paused;
+            $('stage').classList.toggle('paused', paused);
+            $('pause').textContent = paused ? '▶ Resume' : '❚❚ Pause';
+            if (window.speechSynthesis) { paused ? speechSynthesis.pause() : speechSynthesis.resume(); }
+        }
+        setInterval(() => { if (running && !paused) elapsed += .25; const s = Math.floor(elapsed); $('clock').textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; }, 250);
+
+        function loadVoices() {
+            if (!window.speechSynthesis) { $('voice').innerHTML = '<option>No voices available</option>'; return; }
+            const vs = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
+            if (!vs.length) return;
+            const cur = $('voice').value;
+            $('voice').innerHTML = vs.map(v => `<option value="${v.name}">${v.name} (${v.lang})</option>`).join('');
+            const pref = vs.find(v => v.name === cur) || vs.find(v => /Natural/i.test(v.name) && /Aria|Jenny|Clara|Emma|Ava|Libby|Sonia|Michelle/i.test(v.name)) || vs.find(v => /Natural/i.test(v.name)) || vs.find(v => /Google UK English Female|Samantha|Karen|Moira|Zira/i.test(v.name)) || vs.find(v => /en-CA/i.test(v.lang)) || vs[0];
+            if (pref) $('voice').value = pref.name;
+        }
+        if (window.speechSynthesis) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+
+        (function grain() { const c = document.createElement('canvas'); c.width = c.height = 220; const x = c.getContext('2d'), d = x.createImageData(220, 220); for (let i = 0; i < d.data.length; i += 4) { const v = 180 + Math.random() * 75; d.data[i] = v; d.data[i + 1] = v * .96; d.data[i + 2] = v * .9; d.data[i + 3] = 255; } x.putImageData(d, 0, 0); $('grain').style.backgroundImage = `url(${c.toDataURL()})`; })();
+        ['tStar', 'cStar', 'clStar'].forEach(i => $(i).innerHTML = starShape(100));
+        $('play').onclick = run; $('pause').onclick = togglePause;
+    </script>
+</body>
+
+</html>
